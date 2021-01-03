@@ -20,9 +20,8 @@ public class LocalCommand implements Command {
         String localParameter = requestContext.getRequestParameter(LOCAL_PARAMETER)[INDEX_FIRST_VALUE];
 
         requestContext.setSessionAttribute(LOCAL_ATTRIBUTE, localParameter);
-
-        //  String page = request.getHeader("Referer");
-        //todo the same page
+        //todo incorrect work. watch header.jsp input currentPage
+        //String currentPage = requestContext.getRequestParameter("currentPage")[INDEX_FIRST_VALUE];
 
         return CommandResult.redirect(COMMAND_MAIN);
     }

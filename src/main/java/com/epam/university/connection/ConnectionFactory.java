@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -36,13 +37,13 @@ public class ConnectionFactory {
 
     }
 
-    public ProxyConnection create() {
+    public Connection create() {
 
         try {
 
             String url = properties.getProperty(URL_KEY_PROPERTY);
 
-            return new ProxyConnection(DriverManager.getConnection(url, properties));
+            return DriverManager.getConnection(url, properties);
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
             throw new ConnectionException(e.getMessage(), e);

@@ -3,6 +3,10 @@ package com.epam.university.dao.helper;
 import com.epam.university.connection.ConnectionPool;
 import com.epam.university.connection.ProxyConnection;
 import com.epam.university.dao.*;
+import com.epam.university.dao.impl.CertificateDaoImpl;
+import com.epam.university.dao.impl.FacultyDtoDaoImpl;
+import com.epam.university.dao.impl.SubjectDaoImpl;
+import com.epam.university.dao.impl.UserDtoDaoImpl;
 
 import java.sql.SQLException;
 
@@ -53,6 +57,16 @@ public class DaoHelper implements AutoCloseable {
 
     }
 
+    public void commitTransaction() throws DaoException {
+
+        try {
+            proxyConnection.commit();
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        }
+
+    }
+
     public void rollBackTransaction() throws DaoException {
 
         try {
@@ -72,6 +86,5 @@ public class DaoHelper implements AutoCloseable {
         }
 
     }
-
 
 }

@@ -10,7 +10,7 @@
   <head>
     <link href="${pageContext.request.contextPath}/static/styles/style.css" rel="stylesheet" type="text/css">
     <title>
-      <fmt:message key="label.title.authorization" />
+      <fmt:message key="label.authorization.title" />
     </title>
   </head>
 
@@ -23,17 +23,47 @@
 
       <div class="context">
         <br>
-        <form method="POST" action="/University/controller?command=login">
-          <fmt:message key="label.context.input.login" /><br>
-          <input type="text" name="login"/><br>
-          <fmt:message key="label.context.input.password" /><br>
-          <input type="password" name="password"/><br>
-          <input type="submit"/>
+        <form method="POST" action="${pageContext.request.contextPath}/controller?command=login">
+          <table width="50%" align="center" border="1">
+            <tr>
+              <td>
+                <label for="login">
+                  <fmt:message key="label.authorization.context.input.login" />
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="text" required name="login"/>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="password">
+                  <fmt:message key="label.authorization.context.input.password" />
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input type="password" required name="password"/>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="button-send">
+                  <button type="submit">
+                    <fmt:message key="label.authorization.context.button.login" />
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </table>
         </form>
         <br>
 
         <c:if test="${isVisibleErrorMessage == true}">
-          <fmt:message key="label.context.error.message.login" />
+          <fmt:message key="label.authorization.context.error.message" />
         </c:if>
 
       </div>

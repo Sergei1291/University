@@ -1,9 +1,9 @@
 package com.epam.university.command;
 
-public class CommandResult {
+public final class CommandResult {
 
-    private String page;
-    private boolean redirect;
+    private final String page;
+    private final boolean redirect;
 
     private CommandResult(String page, boolean redirect) {
 
@@ -40,9 +40,7 @@ public class CommandResult {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         CommandResult that = (CommandResult) o;
-
         if (redirect != that.redirect) {
             return false;
         }
@@ -58,7 +56,7 @@ public class CommandResult {
 
     @Override
     public String toString() {
-        return "CommandResult{" +
+        return this.getClass().getSimpleName() + "{" +
                 "page='" + page + '\'' +
                 ", redirect=" + redirect +
                 '}';

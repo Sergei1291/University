@@ -12,34 +12,49 @@
 
       <div class="buttons-container">
         <div class="dropdown">
-          <div class="button-language">
+          <div class="dropdown-head">
             <fmt:message key="label.header.button.language" />
           </div>
           <div class="dropdown-child">
-            <a href="${pageContext.request.contextPath}/controller?command=local&local=en">
-              <fmt:message key="label.header.button.eng" />
-            </a>
-            <br>
-            <a href="${pageContext.request.contextPath}/controller?command=local&local=ru">
-              <fmt:message key="label.header.button.rus" />
-            </a>
-            <br>
-            <a href="${pageContext.request.contextPath}/controller?command=local&local=by">
-              <fmt:message key="label.header.button.blr" />
-            </a>
+            <form method="POST" action="${pageContext.request.contextPath}/controller?command=local">
+              <input type="hidden" name="currentPage" value="${pageContext.request.getHeader("Referer")}">
+              <input type="hidden" name="local" value="en">
+              <button type="submit">
+                <fmt:message key="label.header.button.eng" />
+              </button>
+            </form>
+            <form method="POST" action="${pageContext.request.contextPath}/controller?command=local">
+              <input type="hidden" name="currentPage" value="${pageContext.request.getHeader("Referer")}">
+              <input type="hidden" name="local" value="ru">
+              <button type="submit">
+                <fmt:message key="label.header.button.rus" />
+              </button>
+            </form>
+            <form method="POST" action="${pageContext.request.contextPath}/controller?command=local">
+              <input type="hidden" name="currentPage" value="${pageContext.request.getHeader("Referer")}">
+              <input type="hidden" name="local" value="by">
+              <button type="submit">
+                <fmt:message key="label.header.button.blr" />
+              </button>
+            </form>
           </div>
         </div>
 
-        <div class="button-login">
+        <div class="header-button">
           <c:if test="${sessionScope.userDto == null}">
-            <a href="${pageContext.request.contextPath}/controller?command=authorization">
-              <fmt:message key="label.header.button.login" />
-            </a>
+            <form method="GET" action="${pageContext.request.contextPath}/controller">
+              <input type="hidden" name="command" value="authorization">
+              <button type="submit">
+                <fmt:message key="label.header.button.login" />
+              </button>
+            </form>
           </c:if>
           <c:if test="${sessionScope.userDto != null}">
-            <a href="${pageContext.request.contextPath}/controller?command=logout">
-              <fmt:message key="label.header.button.logout" />
-            </a>
+            <form method="POST" action="${pageContext.request.contextPath}/controller?command=logout">
+              <button type="submit">
+                <fmt:message key="label.header.button.logout" />
+              </button>
+            </form>
           </c:if>
         </div>
       </div>

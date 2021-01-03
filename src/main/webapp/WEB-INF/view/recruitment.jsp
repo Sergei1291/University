@@ -10,7 +10,7 @@
   <head>
     <link href="${pageContext.request.contextPath}/static/styles/style.css" rel="stylesheet" type="text/css">
     <title>
-      <fmt:message key="label.title.recruitment" />
+      <fmt:message key="label.recruitment.title" />
     </title>
   </head>
 
@@ -27,16 +27,16 @@
         <table width="80%" align="center" border="3">
           <tr>
             <td>
-              <fmt:message key="label.context.table.num" />
+              <fmt:message key="label.recruitment.context.table.num" />
             </td>
             <td>
-              <fmt:message key="label.context.table.faculty" />
+              <fmt:message key="label.recruitment.context.table.faculty" />
             </td>
             <td>
-              <fmt:message key="label.context.table.subjects" />
+              <fmt:message key="label.recruitment.context.table.subjects" />
             </td>
             <td>
-              <fmt:message key="label.context.table.recruitment" />
+              <fmt:message key="label.recruitment.context.table.recruitment" />
             </td>
           </tr>
 
@@ -50,7 +50,8 @@
               </td>
               <td>
                 <c:forEach var="subject" items="${faculty.subjects}">
-                <c:out value="${subject.name}"/><br>
+                  <c:out value="${subject.name}"/>
+                  <br>
                 </c:forEach>
               </td>
               <td>

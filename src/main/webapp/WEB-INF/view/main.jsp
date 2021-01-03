@@ -10,7 +10,7 @@
   <head>
     <link href="${pageContext.request.contextPath}/static/styles/style.css" rel="stylesheet" type="text/css">
     <title>
-      <fmt:message key="label.title.main" />
+      <fmt:message key="label.main.title" />
     </title>
   </head>
 
@@ -23,8 +23,22 @@
 
       <div class="context">
         <h1>
-          <fmt:message key="label.context.welcome.site" />
+          <fmt:message key="label.main.context.welcome.site" />
         </h1>
+        <br>
+        <c:if test="${requestScope.isRegistrationFinished}">
+          <fmt:message key="label.main.context.registration.finished" />
+          <form method="GET" action="${pageContext.request.contextPath}/controller">
+            <input type="hidden" name="command" value="selectFaculty">
+            <input type="hidden" name="targetPage" value="view">
+            <div class="context-button">
+              <button type="submit">
+                <fmt:message key="label.main.context.button.enrolled" />
+              </button>
+            </div>
+          </form>
+        </c:if>
+
       </div>
 
     </div>

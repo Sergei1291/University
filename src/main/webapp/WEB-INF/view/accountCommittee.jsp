@@ -10,7 +10,7 @@
   <head>
     <link href="${pageContext.request.contextPath}/static/styles/style.css" rel="stylesheet" type="text/css">
     <title>
-      <fmt:message key="label.title.personal.account" />
+      <fmt:message key="label.personal.account.title" />
     </title>
   </head>
 
@@ -23,17 +23,19 @@
 
       <div class="context">
         <h2>
-          <fmt:message key="label.context.welcome.account" />
+          <fmt:message key="label.personal.account.context.welcome" />
         </h2>
         <h3>
           ${sessionScope.userDto.name} ${sessionScope.userDto.surname}
         </h3>
         <br>
-        <div class="button">
-          <a href="${pageContext.request.contextPath}/controller?command=register">
-            <fmt:message key="label.context.button.register.application" />
-          </a>
-        </div>
+        <form method="POST" action="${pageContext.request.contextPath}/controller?command=register">
+          <div class="context-button">
+            <button type="submit">
+              <fmt:message key="label.personal.account.context.button.register" />
+            </button>
+          </div>
+        </form>
       </div>
 
     </div>

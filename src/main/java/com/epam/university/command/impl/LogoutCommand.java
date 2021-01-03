@@ -7,14 +7,14 @@ import com.epam.university.service.ServiceException;
 
 public class LogoutCommand implements Command {
 
+    private final static String USER_DTO_ATTRIBUTE = "userDto";
+
     private final static String COMMAND_MAIN = "/University/controller?command=main";
 
     @Override
     public CommandResult execute(RequestContext requestContext) throws ServiceException {
 
-        requestContext.invalidateSession();
-        //todo not invalidate: session keep userDto and local
-        //todo remove attribute userDto
+        requestContext.setSessionAttribute(USER_DTO_ATTRIBUTE, null);
 
         return CommandResult.redirect(COMMAND_MAIN);
     }

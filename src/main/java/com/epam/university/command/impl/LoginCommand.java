@@ -3,7 +3,7 @@ package com.epam.university.command.impl;
 import com.epam.university.command.Command;
 import com.epam.university.command.CommandResult;
 import com.epam.university.context.RequestContext;
-import com.epam.university.model.UserDto;
+import com.epam.university.model.user.UserDto;
 import com.epam.university.service.ServiceException;
 import com.epam.university.service.UserDtoService;
 
@@ -19,7 +19,7 @@ public class LoginCommand implements Command {
     private final static String USER_DTO_ATTRIBUTE = "userDto";
 
     private final static String PAGE_AUTHORIZATION = "WEB-INF/view/authorization.jsp";
-    private final static String COMMAND_MAIN = "/University/controller?command=main";
+    private final static String COMMAND_ACCOUNT = "/University/controller?command=account";
 
     private UserDtoService userDtoService;
 
@@ -47,7 +47,7 @@ public class LoginCommand implements Command {
         UserDto userDto = optionalUserDto.get();
         requestContext.setSessionAttribute(USER_DTO_ATTRIBUTE, userDto);
 
-        return CommandResult.redirect(COMMAND_MAIN);
+        return CommandResult.redirect(COMMAND_ACCOUNT);
     }
 
 }

@@ -21,7 +21,7 @@ public class ConnectionPool {
 
     private static ConnectionPool instance;
 
-    private ConnectionFactory connectionFactory = new ConnectionFactory();
+    private final ConnectionFactory connectionFactory = new ConnectionFactory();
 
     private Queue<ProxyConnection> availableConnections;
     private List<ProxyConnection> usedConnections;
@@ -43,7 +43,7 @@ public class ConnectionPool {
 
                 if (localInstance == null) {
                     localInstance = new ConnectionPool();
-                    localInstance.initialize(localInstance);
+                    localInstance.initialize();
                     instance = localInstance;
                     isInstanceCreated.set(true);
                 }
@@ -57,22 +57,22 @@ public class ConnectionPool {
         return instance;
     }
 
-    private void initialize(ConnectionPool connectionPool) {
+    private void initialize() {
 
         semaphore = new Semaphore(CONNECTIONS_NUMBER, true);
 
         this.availableConnections = new LinkedList<>();
         this.usedConnections = new ArrayList<>();
 
-        initializeConnections(connectionPool);
+        initializeConnections();
 
     }
 
-    private void initializeConnections(ConnectionPool connectionPool) {
+    private void initializeConnections() {
 
         for (int i = 0; i < CONNECTIONS_NUMBER; i++) {
-            ProxyConnection proxyConnection = connectionFactory.create();
-            proxyConnection.setPool(connectionPool);
+            Connection connection = connectionFactory.create();
+            ProxyConnection proxyConnection = new ProxyConnection(connection, this);
             availableConnections.offer(proxyConnection);
             usedConnections.add(proxyConnection);
         }

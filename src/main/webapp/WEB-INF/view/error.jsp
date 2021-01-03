@@ -10,12 +10,17 @@
   <head>
     <link href="${pageContext.request.contextPath}/static/styles/context.css" rel="stylesheet" type="text/css">
     <title>
-      <fmt:message key="label.title.error" />
+      <fmt:message key="label.error.title" />
     </title>
   </head>
 
   <body>
     ${message}
+    ${exception}
+    <c:forEach var="object" items="${exception.stackTrace}">
+      <c:out value="${object}"/>
+      <br>
+    </c:forEach>
   </body>
 
 </html>

@@ -64,23 +64,21 @@ public class RequestContext {
 
     }
 
-    public void invalidateSession() {
-
-        sessionAttributes.clear();
-
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         RequestContext that = (RequestContext) o;
-
-        if (requestAttributes != null ? !requestAttributes.equals(that.requestAttributes) : that.requestAttributes != null)
+        if (requestAttributes != null ? !requestAttributes.equals(that.requestAttributes) : that.requestAttributes != null) {
             return false;
-        if (requestParameters != null ? !requestParameters.equals(that.requestParameters) : that.requestParameters != null)
+        }
+        if (requestParameters != null ? !requestParameters.equals(that.requestParameters) : that.requestParameters != null) {
             return false;
+        }
         return sessionAttributes != null ? sessionAttributes.equals(that.sessionAttributes) : that.sessionAttributes == null;
     }
 
@@ -94,7 +92,7 @@ public class RequestContext {
 
     @Override
     public String toString() {
-        return "RequestContent{" +
+        return this.getClass().getSimpleName() + "{" +
                 "requestAttributes=" + requestAttributes +
                 ", requestParameters=" + requestParameters +
                 ", sessionAttributes=" + sessionAttributes +

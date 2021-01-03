@@ -95,6 +95,24 @@ public abstract class AbstractDao<T extends Identifiable> implements Dao<T> {
 
     }
 
+    protected int executeQueryCounter(String query, Object... params) throws DaoException {
+
+        try (PreparedStatement statement = createStatement(query, params);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            int count = 0;
+
+            while (resultSet.next()) {
+                count = resultSet.getInt("count");
+            }
+
+            return count;
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        }
+
+    }
+
     private PreparedStatement createStatement(String query, Object... params) throws SQLException {
 
         PreparedStatement statement = connection.prepareStatement(query);

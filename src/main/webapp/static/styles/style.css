@@ -1,61 +1,80 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
 .header {
     width:100%;
     text-align:center;
-    font-size:20px;
-    padding:5px 2px;
+}
+
+button:active, button:focus {
+  outline: none !important;
 }
 
 .buttons-container {
-    display:flex;
+    display:inline-flex;
     width:100%;
     justify-content:flex-end;
 }
 
-.button-login {
-    flex-basis:auto;
+.header-button {
+    flex-basis:12%;
     min-width:150px;
-    background-color:#00AAFF;
-    border:solid 1px #000000;
-    padding:10px 0px;
+    height:100%;
 }
 
-.button-login a {
-    color:#000000;
-    text-decoration:none;
-}
-
-.button-language {
+.header-button button {
     width:100%;
-    color:#000000;
-    border:solid 1px #000000;
     background-color:#00AAFF;
-    padding:10px 0px;
+    border:none;
+    padding:10px 1px;
+    font-size:25px;
+    color:#000000;
+}
+
+.header-button button:hover {
+    background-color:#00AA90;
+    border:none;
 }
 
 .dropdown {
-    flex-basis:auto;
+    flex-basis:12%;
     min-width:150px;
-    background-color:#00AAFF;
+    height:100%;
     position:relative;
     display:inline-block;
 }
 
-.dropdown-child {
-    background-color:#00AAFF;
-    padding:5px 0px;
-    border:solid 1px #000000;
-    display:none;
-    position:absolute;
+.dropdown-head {
     width:100%;
+    background-color:#00AAFF;
+    padding:10px 1px;
+    font-size:25px;
+    color:#000000;
 }
 
 .dropdown:hover .dropdown-child {
     display: block;
 }
 
-.dropdown-child a {
+.dropdown-child {
+    display:none;
+    position:absolute;
+    width:100%;
+    font-size:0px;
+}
+
+.dropdown-child button {
+    width:100%;
+    background-color:#00AAD0;
+    border:none;
+    padding:3px 1px;
+    font-size:20px;
     color:#000000;
-    text-decoration:none;
+}
+
+.dropdown-child button:hover {
+    background-color:#00AA90;
 }
 
 .header-name {
@@ -84,7 +103,7 @@
     margin-bottom:3px;
 }
 
-.button-menu a{
+.button-menu a {
     color:#000000;
     text-decoration:none;
 }
@@ -93,14 +112,14 @@
     background-color:#C4C4D4;
 }
 
-.context{
+.context {
     flex:3;
     font-size:25px;
     background-color:#F5F5F5;
     justify-content:center;
 }
 
-.button {
+.context-button button {
     width:25%;
     min-width:250px;
     font-size:25px;
@@ -113,7 +132,23 @@
     margin-right:auto;
 }
 
-.button a {
-    color:#000000;
-    text-decoration:none;
+.context-button button:hover {
+    background-color:#69F080;
+}
+
+.button-send button {
+    width:15%;
+    min-width:150px;
+    font-size:15px;
+    background-color:#FE9A2E;
+    border:solid 1px #000000;
+    padding:10px 1px;
+    margin-bottom:10px;
+    margin-top:10px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.button-send button:hover {
+    background-color:#F7BE81;
 }

@@ -12,7 +12,8 @@ import java.util.List;
 public class ApplicationCommand implements Command {
 
     private final static int INDEX_FIRST_VALUE = 0;
-    private final static String ID_FACULTY_PARAMETER = "id";
+
+    private final static String ID_FACULTY_PARAMETER = "facultyId";
     private final static String ID_FACULTY_ATTRIBUTE = "facultyId";
     private final static String SUBJECTS_ATTRIBUTE = "subjects";
 
@@ -31,10 +32,9 @@ public class ApplicationCommand implements Command {
 
         String idFaculty = requestContext.getRequestParameter(ID_FACULTY_PARAMETER)[INDEX_FIRST_VALUE];
         int idFacultyInt = Integer.parseInt(idFaculty);
+        requestContext.setRequestAttribute(ID_FACULTY_ATTRIBUTE, idFacultyInt);
 
         List<Subject> subjects = facultyService.findSubjects(idFacultyInt);
-
-        requestContext.setRequestAttribute(ID_FACULTY_ATTRIBUTE, idFacultyInt);
         requestContext.setRequestAttribute(SUBJECTS_ATTRIBUTE, subjects);
 
         return CommandResult.forward(PAGE_APPLICATION);

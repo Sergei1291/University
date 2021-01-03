@@ -1,19 +1,5 @@
 package com.epam.university.command;
 
-import com.epam.university.command.impl.LoginCommand;
-import com.epam.university.context.RequestContext;
-import com.epam.university.model.UserDto;
-import com.epam.university.service.ServiceException;
-import com.epam.university.service.UserDtoService;
-import org.junit.Assert;
-import org.junit.Test;
-import org.mockito.Mockito;
-
-import java.util.Optional;
-
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.when;
-
 public class LoginCommandTest {
 /*
     private final static String LOGIN_PARAMETER_NAME = "login";

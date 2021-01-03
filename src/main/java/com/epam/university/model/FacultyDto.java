@@ -8,7 +8,6 @@ public class FacultyDto implements Identifiable {
     private final FacultyName name;
     private final int recruitment;
 
-
     public FacultyDto(int id, FacultyName name, int recruitment) {
 
         this.id = id;

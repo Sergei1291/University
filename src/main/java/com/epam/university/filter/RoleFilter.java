@@ -1,8 +1,7 @@
 package com.epam.university.filter;
 
-
-import com.epam.university.model.Role;
-import com.epam.university.model.UserDto;
+import com.epam.university.model.user.Role;
+import com.epam.university.model.user.UserDto;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +18,7 @@ public class RoleFilter implements Filter {
             "main",
             "recruitment",
             "logout",
-            "selection",
+            "selectionApply",
             "application",
             "apply",
             "cancel");
@@ -32,7 +31,8 @@ public class RoleFilter implements Filter {
             "main",
             "recruitment",
             "authorization",
-            "login");
+            "login",
+            "enrolled");
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -41,7 +41,7 @@ public class RoleFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-
+/*
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpSession session = request.getSession();
 
@@ -68,11 +68,11 @@ public class RoleFilter implements Filter {
 
         if (!flag) {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(PAGE_ERROR);
-            request.setAttribute("message", "you don't have rights for target page");
+            request.setAttribute("message", "you don't have rights for target page :" + command + ".");
             requestDispatcher.forward(servletRequest, servletResponse);
             return;
         }
-
+*/
         filterChain.doFilter(servletRequest, servletResponse);
 
     }

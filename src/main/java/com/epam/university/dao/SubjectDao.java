@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface SubjectDao extends Dao<Subject> {
 
-    List<Subject> findByFaculty(int idFaculty) throws DaoException;
+    List<Subject> findByIdFaculty(int idFaculty) throws DaoException;
 
 }

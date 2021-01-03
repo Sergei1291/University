@@ -10,7 +10,7 @@
   <head>
     <link href="${pageContext.request.contextPath}/static/styles/style.css" rel="stylesheet" type="text/css">
     <title>
-      <fmt:message key="label.title.application.form" />
+      <fmt:message key="label.application.form.title" />
     </title>
   </head>
 
@@ -23,23 +23,38 @@
 
       <div class="context">
         <br>
+        <form method="POST" action="${pageContext.request.contextPath}/controller?command=apply">
+          <input type="hidden" name="firstSubjectId" value="${subjects.get(0).id}"/>
+          <input type="hidden" name="secondSubjectId" value="${subjects.get(1).id}"/>
+          <input type="hidden" name="thirdSubjectId" value="${subjects.get(2).id}"/>
+          <input type="hidden" name="facultyId" value="${facultyId}"/>
 
-        <form method="POST" action="/University/controller?command=apply&id=${subjects.get(0).id}&id=${subjects.get(1).id}&id=${subjects.get(2).id}&id=${facultyId}">
+          <label for="firstMark">
+            <c:out value="${subjects.get(0).name}"/>
+          </label>
           <input type="number" required min="0" max="100" name="firstMark"/>
-          <c:out value="${subjects.get(0).name}"/>
           <br>
+          <label for="secondMark">
+            <c:out value="${subjects.get(1).name}"/>
+          </label>
           <input type="number" required min="0" max="100" name="secondMark"/>
-          <c:out value="${subjects.get(1).name}"/>
           <br>
+          <label for="thirdMark">
+            <c:out value="${subjects.get(2).name}"/>
+          </label>
           <input type="number" required min="0" max="100" name="thirdMark"/>
-          <c:out value="${subjects.get(2).name}"/>
           <br>
+          <label for="averageMark">
+            <fmt:message key="label.application.form.context.input.average.mark" />
+          </label>
           <input type="number" required min="0" max="100" name="averageMark"/>
-          <c:out value="AVERAGE MARK"/>
           <br>
-          <input type="submit"/>
+          <div class="button-send">
+            <button type="submit">
+              <fmt:message key="label.application.form.context.button.apply" />
+            </button>
+          </div>
         </form>
-
       </div>
 
     </div>

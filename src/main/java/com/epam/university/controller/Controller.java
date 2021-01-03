@@ -20,6 +20,7 @@ public class Controller extends HttpServlet {
 
     private final static String COMMAND_PARAMETER = "command";
     private final static String MESSAGE_ATTRIBUTE = "message";
+    private final static String EXCEPTION_ATTRIBUTE = "exception";
 
     private final static String PAGE_ERROR = "WEB-INF/view/error.jsp";
 
@@ -55,23 +56,25 @@ public class Controller extends HttpServlet {
             dispatch(commandResult, request, response);
 
         } catch (Exception e) {
+
             LOGGER.error(e.getMessage(), e);
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(PAGE_ERROR);
             request.setAttribute(MESSAGE_ATTRIBUTE, e.getMessage());
+            request.setAttribute(EXCEPTION_ATTRIBUTE, e);
 
             try {
                 requestDispatcher.forward(request, response);
-            } catch (Exception ignored) {
-
+            } catch (Exception exception) {
+                LOGGER.error(exception.getMessage(), exception);
             }
 
         }
 
     }
 
-    private void dispatch(CommandResult commandResult, HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private void dispatch(CommandResult commandResult, HttpServletRequest request,
+                          HttpServletResponse response) throws ServletException, IOException {
 
         String page = commandResult.getPage();
 

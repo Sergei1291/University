@@ -10,7 +10,7 @@
   <head>
     <link href="${pageContext.request.contextPath}/static/styles/style.css" rel="stylesheet" type="text/css">
     <title>
-      <fmt:message key="label.title.register" />
+      <fmt:message key="label.register.title" />
     </title>
   </head>
 
@@ -23,7 +23,7 @@
 
       <div class="context">
         <h1>
-          <fmt:message key="label.context.button.register.application" />
+          <fmt:message key="label.register.context.registered.application" />
         </h1>
         <br>
         ${registeredApplications}
