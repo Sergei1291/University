@@ -26,7 +26,8 @@
         <fmt:message key="label.selection.faculty.context.select.faculty" />
         <br><br>
         <c:forEach var="facultyDto" items="${facultiesDto}">
-          <form method="POST" action="${pageContext.request.contextPath}/controller?command=enrolledApplicants">
+          <form method="GET" action="${pageContext.request.contextPath}/controller">
+            <input type="hidden" name="command" value="enrolledApplicants">
             <input type="hidden" name="facultyId" value="${facultyDto.id}">
             <div class="context-button">
               <button type="submit">

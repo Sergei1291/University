@@ -8,8 +8,12 @@ import com.epam.university.service.ServiceException;
 
 public class RegisterCommand implements Command {
 
+    private final static String MESSAGE_ATTRIBUTE = "message";
+    private final static String MESSAGE_ATTRIBUTE_VALUE = "registration of applications is over." +
+            " You can not make this action";
     private final static String REGISTERED_APPLICATIONS_ATTRIBUTE = "registeredApplications";
 
+    private final static String PAGE_ERROR = "WEB-INF/view/error.jsp";
     private final static String PAGE_REGISTER = "WEB-INF/view/register.jsp";
 
     private ApplicationService applicationService;
@@ -22,6 +26,12 @@ public class RegisterCommand implements Command {
 
     @Override
     public CommandResult execute(RequestContext requestContext) throws ServiceException {
+
+        if (applicationService.isRegistrationFinished()) {
+
+            requestContext.setRequestAttribute(MESSAGE_ATTRIBUTE, MESSAGE_ATTRIBUTE_VALUE);
+            return CommandResult.forward(PAGE_ERROR);
+        }
 
         int registeredApplications = applicationService.registerApplications();
 

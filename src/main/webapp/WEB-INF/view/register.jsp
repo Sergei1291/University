@@ -22,11 +22,13 @@
       </div>
 
       <div class="context">
-        <h1>
+        <h2>
           <fmt:message key="label.register.context.registered.application" />
-        </h1>
+        </h2>
         <br>
-        ${registeredApplications}
+        <h2>
+          ${registeredApplications}
+        </h2>
       </div>
 
     </div>

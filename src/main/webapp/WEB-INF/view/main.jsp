@@ -28,12 +28,15 @@
         <br>
         <c:if test="${requestScope.isRegistrationFinished}">
           <fmt:message key="label.main.context.registration.finished" />
+          <br>
+          <br>
+          <fmt:message key="label.main.context.show" />
           <form method="GET" action="${pageContext.request.contextPath}/controller">
             <input type="hidden" name="command" value="selectFaculty">
             <input type="hidden" name="targetPage" value="view">
             <div class="context-button">
               <button type="submit">
-                <fmt:message key="label.main.context.button.enrolled" />
+                <fmt:message key="label.main.context.button.show" />
               </button>
             </div>
           </form>

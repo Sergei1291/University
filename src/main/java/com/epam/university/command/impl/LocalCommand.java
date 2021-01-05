@@ -10,9 +10,10 @@ public class LocalCommand implements Command {
     private final static int INDEX_FIRST_VALUE = 0;
 
     private final static String LOCAL_PARAMETER = "local";
+    private final static String QUERY_PARAMETER = "query";
     private final static String LOCAL_ATTRIBUTE = "local";
 
-    private final static String COMMAND_MAIN = "/University/controller?command=main";
+    private final static String URL = "/University/controller?";
 
     @Override
     public CommandResult execute(RequestContext requestContext) throws ServiceException {
@@ -20,10 +21,10 @@ public class LocalCommand implements Command {
         String localParameter = requestContext.getRequestParameter(LOCAL_PARAMETER)[INDEX_FIRST_VALUE];
 
         requestContext.setSessionAttribute(LOCAL_ATTRIBUTE, localParameter);
-        //todo incorrect work. watch header.jsp input currentPage
-        //String currentPage = requestContext.getRequestParameter("currentPage")[INDEX_FIRST_VALUE];
 
-        return CommandResult.redirect(COMMAND_MAIN);
+        String query = requestContext.getRequestParameter(QUERY_PARAMETER)[INDEX_FIRST_VALUE];
+
+        return CommandResult.redirect(URL + query);
     }
 
 }

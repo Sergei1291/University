@@ -15,12 +15,9 @@
   </head>
 
   <body>
-    ${message}
-    ${exception}
-    <c:forEach var="object" items="${exception.stackTrace}">
-      <c:out value="${object}"/>
-      <br>
-    </c:forEach>
+    <h2>
+      ${message}
+    </h2>
   </body>
 
 </html>

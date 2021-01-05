@@ -4,6 +4,7 @@ import com.epam.university.command.Command;
 import com.epam.university.command.CommandResult;
 import com.epam.university.context.RequestContext;
 import com.epam.university.model.user.UserDto;
+import com.epam.university.service.ApplicationService;
 import com.epam.university.service.ServiceException;
 import com.epam.university.service.UserDtoService;
 
@@ -14,11 +15,11 @@ public class MainCommand implements Command {
     private final static String PAGE_MAIN = "WEB-INF/view/main.jsp";
     private final static String COMMAND_ACCOUNT = "/University/controller?command=account";
 
-    private UserDtoService userDtoService;
+    private ApplicationService applicationService;
 
-    public MainCommand(UserDtoService userDtoService) {
+    public MainCommand(ApplicationService applicationService) {
 
-        this.userDtoService = userDtoService;
+        this.applicationService = applicationService;
 
     }
 
@@ -39,7 +40,7 @@ public class MainCommand implements Command {
 
     private void addAttribute(RequestContext requestContext) throws ServiceException {
 
-        boolean isRegistrationFinished = userDtoService.isRegistrationFinished();
+        boolean isRegistrationFinished = applicationService.isRegistrationFinished();
 
         requestContext.setRequestAttribute(IS_REGISTRATION_FINISHED_ATTRIBUTE, isRegistrationFinished);
 

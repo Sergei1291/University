@@ -2,7 +2,7 @@ package com.epam.university.model.user;
 
 import com.epam.university.model.Identifiable;
 
-public class UserDto implements Identifiable {
+public final class UserDto implements Identifiable {
 
     private static final long serialVersionUID = 1L;
 
@@ -10,9 +10,9 @@ public class UserDto implements Identifiable {
     private final Role role;
     private final String name;
     private final String surname;
-    private Integer faculty;
-    private Integer averageMark;
-    private ApplicationStatus applicationStatus;
+    private final Integer faculty;
+    private final Integer averageMark;
+    private final ApplicationStatus applicationStatus;
 
     public UserDto(int id, Role role, String name, String surname,
                    Integer faculty, Integer averageMark, ApplicationStatus applicationStatus) {
@@ -57,32 +57,14 @@ public class UserDto implements Identifiable {
         return faculty;
     }
 
-    public void setFaculty(Integer faculty) {
-
-        this.faculty = faculty;
-
-    }
-
     public Integer getAverageMark() {
 
         return averageMark;
     }
 
-    public void setAverageMark(Integer averageMark) {
-
-        this.averageMark = averageMark;
-
-    }
-
     public ApplicationStatus getApplicationStatus() {
 
         return applicationStatus;
-    }
-
-    public void setApplicationStatus(ApplicationStatus applicationStatus) {
-
-        this.applicationStatus = applicationStatus;
-
     }
 
 }

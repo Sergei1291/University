@@ -8,6 +8,8 @@ import java.util.Map;
 
 public interface ApplicationService {
 
+    boolean isRegistrationFinished() throws ServiceException;
+
     UserDto apply(int userId, int facultyId, int averageMark,
                   Map<Integer, Integer> subjectsMarks) throws ServiceException;
 

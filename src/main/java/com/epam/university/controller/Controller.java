@@ -20,7 +20,6 @@ public class Controller extends HttpServlet {
 
     private final static String COMMAND_PARAMETER = "command";
     private final static String MESSAGE_ATTRIBUTE = "message";
-    private final static String EXCEPTION_ATTRIBUTE = "exception";
 
     private final static String PAGE_ERROR = "WEB-INF/view/error.jsp";
 
@@ -61,7 +60,6 @@ public class Controller extends HttpServlet {
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher(PAGE_ERROR);
             request.setAttribute(MESSAGE_ATTRIBUTE, e.getMessage());
-            request.setAttribute(EXCEPTION_ATTRIBUTE, e);
 
             try {
                 requestDispatcher.forward(request, response);

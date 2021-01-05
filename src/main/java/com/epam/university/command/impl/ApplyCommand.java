@@ -13,6 +13,10 @@ public class ApplyCommand implements Command {
 
     private final static int INDEX_FIRST_VALUE = 0;
 
+    private final static String MESSAGE_ATTRIBUTE = "message";
+    private final static String MESSAGE_ATTRIBUTE_VALUE = "registration of applications is over." +
+            " You can not make this action";
+
     private final static String USER_DTO_ATTRIBUTE = "userDto";
     private final static String FACULTY_ID_PARAMETER = "facultyId";
     private final static String AVERAGE_MARK_PARAMETER = "averageMark";
@@ -25,6 +29,7 @@ public class ApplyCommand implements Command {
     private final static String SECOND_MARK_PARAMETER = "secondMark";
     private final static String THIRD_MARK_PARAMETER = "thirdMark";
 
+    private final static String PAGE_ERROR = "WEB-INF/view/error.jsp";
     private final static String COMMAND_ACCOUNT = "/University/controller?command=account";
 
     private ApplicationService applicationService;
@@ -37,6 +42,12 @@ public class ApplyCommand implements Command {
 
     @Override
     public CommandResult execute(RequestContext requestContext) throws ServiceException {
+
+        if (applicationService.isRegistrationFinished()) {
+
+            requestContext.setRequestAttribute(MESSAGE_ATTRIBUTE, MESSAGE_ATTRIBUTE_VALUE);
+            return CommandResult.forward(PAGE_ERROR);
+        }
 
         UserDto userDto = (UserDto) requestContext.getSessionAttribute(USER_DTO_ATTRIBUTE);
         int userId = userDto.getId();

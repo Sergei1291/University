@@ -1,3 +1,5 @@
+drop database university;
+
 create database if not exists university;
 
 use university;

@@ -26,7 +26,7 @@ public class CommandFactory {
 
         switch (command) {
             case ACCOUNT:
-                return new AccountCommand();
+                return new AccountCommand(new FacultyServiceImpl(new DaoHelperCreator()));
             case APPLICATION:
                 return new ApplicationCommand(new FacultyServiceImpl(new DaoHelperCreator()));
             case APPLY:
@@ -44,7 +44,7 @@ public class CommandFactory {
             case LOGOUT:
                 return new LogoutCommand();
             case MAIN:
-                return new MainCommand(new UserDtoServiceImpl(new DaoHelperCreator()));
+                return new MainCommand(new ApplicationServiceImpl(new DaoHelperCreator()));
             case RECRUITMENT:
                 return new RecruitmentCommand(new FacultyServiceImpl(new DaoHelperCreator()));
             case REGISTER:

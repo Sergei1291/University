@@ -15,6 +15,7 @@ import com.epam.university.service.ServiceException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class FacultyServiceImpl extends AbstractService implements FacultyService {
 
@@ -71,6 +72,22 @@ public class FacultyServiceImpl extends AbstractService implements FacultyServic
             SubjectDao subjectDao = daoHelper.createSubjectDao();
 
             return subjectDao.findByIdFaculty(idFaculty);
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+
+    }
+
+    @Override
+    public FacultyDto findFaculty(int idFaculty) throws ServiceException {
+
+        try (DaoHelper daoHelper = daoHelperCreator.create()) {
+
+            FacultyDtoDao facultyDtoDao = daoHelper.createFacultyDtoDao();
+
+            Optional<FacultyDto> optionalFacultyDto = facultyDtoDao.findById(idFaculty);
+
+            return optionalFacultyDto.get();
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }

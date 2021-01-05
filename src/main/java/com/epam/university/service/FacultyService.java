@@ -14,4 +14,6 @@ public interface FacultyService {
 
     List<Subject> findSubjects(int idFaculty) throws ServiceException;
 
+    FacultyDto findFaculty(int idFaculty) throws ServiceException;
+
 }

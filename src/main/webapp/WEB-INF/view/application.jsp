@@ -22,39 +22,49 @@
       </div>
 
       <div class="context">
-        <br>
-        <form method="POST" action="${pageContext.request.contextPath}/controller?command=apply">
-          <input type="hidden" name="firstSubjectId" value="${subjects.get(0).id}"/>
-          <input type="hidden" name="secondSubjectId" value="${subjects.get(1).id}"/>
-          <input type="hidden" name="thirdSubjectId" value="${subjects.get(2).id}"/>
-          <input type="hidden" name="facultyId" value="${facultyId}"/>
 
-          <label for="firstMark">
-            <c:out value="${subjects.get(0).name}"/>
-          </label>
-          <input type="number" required min="0" max="100" name="firstMark"/>
-          <br>
-          <label for="secondMark">
-            <c:out value="${subjects.get(1).name}"/>
-          </label>
-          <input type="number" required min="0" max="100" name="secondMark"/>
-          <br>
-          <label for="thirdMark">
-            <c:out value="${subjects.get(2).name}"/>
-          </label>
-          <input type="number" required min="0" max="100" name="thirdMark"/>
-          <br>
-          <label for="averageMark">
-            <fmt:message key="label.application.form.context.input.average.mark" />
-          </label>
-          <input type="number" required min="0" max="100" name="averageMark"/>
-          <br>
-          <div class="button-send">
-            <button type="submit">
-              <fmt:message key="label.application.form.context.button.apply" />
-            </button>
-          </div>
-        </form>
+        <div class="form">
+          <form method="POST" action="${pageContext.request.contextPath}/controller?command=apply">
+            <input type="hidden" name="firstSubjectId" value="${subjects.get(0).id}"/>
+            <input type="hidden" name="secondSubjectId" value="${subjects.get(1).id}"/>
+            <input type="hidden" name="thirdSubjectId" value="${subjects.get(2).id}"/>
+            <input type="hidden" name="facultyId" value="${facultyId}"/>
+            <div class="input-form">
+              <label for="firstMark">
+                <c:out value="${subjects.get(0).name}"/>
+              </label>
+              <br>
+              <input type="number" required min="0" max="100" name="firstMark"/>
+            </div>
+            <div class="input-form">
+              <label for="secondMark">
+                <c:out value="${subjects.get(1).name}"/>
+              </label>
+              <br>
+              <input type="number" required min="0" max="100" name="secondMark"/>
+            </div>
+            <div class="input-form">
+              <label for="thirdMark">
+                <c:out value="${subjects.get(2).name}"/>
+              </label>
+              <br>
+              <input type="number" required min="0" max="100" name="thirdMark"/>
+            </div>
+            <div class="input-form">
+              <label for="averageMark">
+                <fmt:message key="label.application.form.context.input.average.mark" />
+              </label>
+              <br>
+              <input type="number" required min="0" max="100" name="averageMark"/>
+            </div>
+            <div class="button-send">
+              <button type="submit">
+                <fmt:message key="label.application.form.context.button.apply" />
+              </button>
+            </div>
+          </form>
+        </div>
+
       </div>
 
     </div>

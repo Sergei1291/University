@@ -1,6 +1,10 @@
 package com.epam.university.model.user;
 
-public class Enrollee {
+import com.epam.university.model.Identifiable;
+
+public final class Enrollee implements Identifiable {
+
+    private static final long serialVersionUID = 1L;
 
     private final String name;
     private final String surname;
@@ -29,5 +33,13 @@ public class Enrollee {
         return balAmount;
     }
 
+    @Override
+    public String toString() {
+        return "Enrollee{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", balAmount=" + balAmount +
+                '}';
+    }
 
 }

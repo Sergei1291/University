@@ -22,45 +22,30 @@
       </div>
 
       <div class="context">
-        <br>
-        <form method="POST" action="${pageContext.request.contextPath}/controller?command=login">
-          <table width="50%" align="center" border="1">
-            <tr>
-              <td>
-                <label for="login">
-                  <fmt:message key="label.authorization.context.input.login" />
-                </label>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input type="text" required name="login"/>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label for="password">
-                  <fmt:message key="label.authorization.context.input.password" />
-                </label>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input type="password" required name="password"/>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="button-send">
-                  <button type="submit">
-                    <fmt:message key="label.authorization.context.button.login" />
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </table>
-        </form>
-        <br>
+
+        <div class="form">
+          <form method="POST" action="${pageContext.request.contextPath}/controller?command=login">
+            <div class="input-form">
+              <label for="login">
+                <fmt:message key="label.authorization.context.input.login" />
+              </label>
+              <br>
+              <input type="text" required name="login" />
+            </div>
+            <div class="input-form">
+              <label for="password">
+                <fmt:message key="label.authorization.context.input.password" />
+              </label>
+              <br>
+              <input type="password" required name="password" />
+            </div>
+            <div class="button-send">
+              <button type="submit">
+                <fmt:message key="label.authorization.context.button.login" />
+              </button>
+            </div>
+          </form>
+        </div>
 
         <c:if test="${isVisibleErrorMessage == true}">
           <fmt:message key="label.authorization.context.error.message" />

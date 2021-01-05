@@ -16,12 +16,12 @@
     </servlet-mapping>
 
     <filter>
-        <filter-name>roleFilter</filter-name>
-        <filter-class>com.epam.university.filter.RoleFilter</filter-class>
+        <filter-name>commandRoleFilter</filter-name>
+        <filter-class>com.epam.university.filter.CommandRoleFilter</filter-class>
     </filter>
 
     <filter-mapping>
-        <filter-name>roleFilter</filter-name>
+        <filter-name>commandRoleFilter</filter-name>
         <url-pattern>/controller</url-pattern>
     </filter-mapping>
 

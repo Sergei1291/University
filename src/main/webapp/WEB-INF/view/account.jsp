@@ -42,7 +42,7 @@
         </c:if>
         <c:if test="${sessionScope.userDto.faculty != 0}">
           <fmt:message key="label.personal.account.context.application" />
-          ${sessionScope.userDto.faculty}
+          ${requestScope.facultyDto.name}
           <fmt:message key="label.personal.account.context.faculty" />
           <form method="POST" action="${pageContext.request.contextPath}/controller?command=cancelApplication">
             <div class="context-button">

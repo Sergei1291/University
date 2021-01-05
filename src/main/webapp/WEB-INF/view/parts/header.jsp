@@ -17,21 +17,21 @@
           </div>
           <div class="dropdown-child">
             <form method="POST" action="${pageContext.request.contextPath}/controller?command=local">
-              <input type="hidden" name="currentPage" value="${pageContext.request.getHeader("Referer")}">
+              <input type="hidden" name="query" value="${pageContext.request.queryString}">
               <input type="hidden" name="local" value="en">
               <button type="submit">
                 <fmt:message key="label.header.button.eng" />
               </button>
             </form>
             <form method="POST" action="${pageContext.request.contextPath}/controller?command=local">
-              <input type="hidden" name="currentPage" value="${pageContext.request.getHeader("Referer")}">
+              <input type="hidden" name="query" value="${pageContext.request.queryString}">
               <input type="hidden" name="local" value="ru">
               <button type="submit">
                 <fmt:message key="label.header.button.rus" />
               </button>
             </form>
             <form method="POST" action="${pageContext.request.contextPath}/controller?command=local">
-              <input type="hidden" name="currentPage" value="${pageContext.request.getHeader("Referer")}">
+              <input type="hidden" name="query" value="${pageContext.request.queryString}">
               <input type="hidden" name="local" value="by">
               <button type="submit">
                 <fmt:message key="label.header.button.blr" />

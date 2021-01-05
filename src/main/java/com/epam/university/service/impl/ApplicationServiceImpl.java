@@ -24,11 +24,33 @@ public class ApplicationServiceImpl extends AbstractService implements Applicati
     private final static ApplicationStatus WAITING = ApplicationStatus.WAITING;
     private final static ApplicationStatus REGISTERED = ApplicationStatus.REGISTERED;
 
+    private final static int MIN_NUMBER_REGISTERED_USERS = 1;
+
     private DaoHelperCreator daoHelperCreator;
 
     public ApplicationServiceImpl(DaoHelperCreator daoHelperCreator) {
 
         this.daoHelperCreator = daoHelperCreator;
+
+    }
+
+    @Override
+    public boolean isRegistrationFinished() throws ServiceException {
+
+        try (DaoHelper daoHelper = daoHelperCreator.create()) {
+
+            UserDtoDao userDtoDao = daoHelper.createUserDtoDao();
+
+            int numberUsers = userDtoDao.findNumberUsersApplicationStatus(REGISTERED);
+
+            if (numberUsers >= MIN_NUMBER_REGISTERED_USERS) {
+                return true;
+            }
+
+            return false;
+        } catch (DaoException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
 
     }
 
