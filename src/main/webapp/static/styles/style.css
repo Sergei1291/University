@@ -109,11 +109,11 @@ button:active, button:focus {
 }
 
 .button-menu a:hover {
-    background-color:#C4C4D4;
+    background:rgba(0,0,100,.1);
 }
 
 .context {
-    flex:3;
+    flex:4;
     font-size:25px;
     background-color:#F5F5F5;
     justify-content:center;
@@ -130,10 +130,11 @@ button:active, button:focus {
     margin-top:10px;
     margin-left:auto;
     margin-right:auto;
+    border-radius:8px;
 }
 
 .context-button button:hover {
-    background-color:#69F080;
+    background:rgba(10,100,50,.4);
 }
 
 .button-send button {
@@ -147,6 +148,7 @@ button:active, button:focus {
     margin-top:30px;
     margin-left:auto;
     margin-right:auto;
+    border-radius:5px;
 }
 
 .button-send button:hover {
@@ -191,17 +193,86 @@ button:active, button:focus {
     background:rgba(0,0,0,.2);
 }
 
-.table table{
+.table-entered-applicants table{
     position:relative;
     margin:10px 0px;
-    left:20%;
-    width:60%;
-    min-width:250px;
-    border:solid 1px #000000;
+    left:25%;
+    width:50%;
+    min-width:300px;
+    border:solid 2px #000000;
     border-collapse:collapse;
 }
 
-.table td{
+.table-entered-applicants td{
+    padding:5px 5px;
+    text-align:center;
+    border:solid 2px #000000;
+    font-size:25px;
+}
+
+.table-entrance-company table{
+    position:relative;
+    margin:10px 0px;
+    left:5%;
+    width:90%;
+    min-width:900px;
+    border:solid 2px #000000;
+    border-collapse:collapse;
+}
+
+.table-entrance-company td{
+    padding:5px 5px;
+    text-align:center;
+    border:solid 2px #000000;
+    font-size:20px;
+}
+
+.table-entrance-company button{
+    font-size:20px;
+    background-color:#FE9A2E;
     border:solid 1px #000000;
+    padding:4px 2px;
+    margin-bottom:4px;
+    margin-top:6px;
+    margin-left:auto;
+    margin-right:auto;
+    border-radius:2px;
+}
+
+.table-entrance-company button:hover {
+    background-color:#F7BE81;
+}
+
+.table-applicants-info table{
+    position:relative;
+    margin:10px 0px;
+    left:10%;
+    width:80%;
+    min-width:400px;
+    border:solid 2px #000000;
+    border-collapse:collapse;
+}
+
+.table-applicants-info td{
+    padding:4px 4px;
+    text-align:center;
+    border:solid 2px #000000;
+    font-size:20px;
+}
+
+.statistic-table table{
+    position:relative;
+    margin:10px 0px;
+    left:25%;
+    width:50%;
+    min-width:250px;
+    border:solid 2px #000000;
+    border-collapse:collapse;
+}
+
+.statistic-table td{
+    padding:4px 4px;
+    text-align:center;
+    border:solid 2px #000000;
     font-size:20px;
 }

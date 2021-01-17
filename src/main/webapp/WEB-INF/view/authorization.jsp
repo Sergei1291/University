@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<fmt:setLocale value="${sessionScope.local}"/>
+<fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="localization" />
 
 <html>
@@ -47,7 +47,7 @@
           </form>
         </div>
 
-        <c:if test="${isVisibleErrorMessage == true}">
+        <c:if test="${isVisibleErrorMessage}">
           <fmt:message key="label.authorization.context.error.message" />
         </c:if>
 

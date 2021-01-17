@@ -11,7 +11,6 @@ public class AuthorizationCommand implements Command {
 
     @Override
     public CommandResult execute(RequestContext requestContext) throws ServiceException {
-
         return CommandResult.forward(PAGE_AUTHORIZATION);
     }
 

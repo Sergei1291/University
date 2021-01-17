@@ -16,13 +16,30 @@
     </servlet-mapping>
 
     <filter>
-        <filter-name>commandRoleFilter</filter-name>
-        <filter-class>com.epam.university.filter.CommandRoleFilter</filter-class>
+        <filter-name>accessByRole</filter-name>
+        <filter-class>com.epam.university.filter.AccessRoleFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>commandEnrollee</filter-name>
+        <filter-class>com.epam.university.filter.CommandEnrolleeFilter</filter-class>
     </filter>
 
     <filter-mapping>
-        <filter-name>commandRoleFilter</filter-name>
+        <filter-name>accessByRole</filter-name>
         <url-pattern>/controller</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>commandEnrollee</filter-name>
+        <url-pattern>/controller</url-pattern>
+    </filter-mapping>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/University/view/error.jsp</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/University/view/error.jsp</location>
+    </error-page>
 
 </web-app>

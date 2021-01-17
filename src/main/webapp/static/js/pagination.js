@@ -1,9 +1,12 @@
-var rowsOnPage = 5;
+var rootDiv;
+var rowsOnPage;
 var rows;
 var th;
 var numberPages;
 
-function initialize() {
+function initialize(root, rowsOnPageParam) {
+  rootDiv=root;
+  rowsOnPage=rowsOnPageParam;
   rows = document.querySelectorAll(".row");
   th = document.querySelector(".th");
   numberPages = calculateNumberPages();
@@ -17,7 +20,7 @@ function display(numPage) {
   let start = calculateStart(numPage);
   let end = calculateEnd(numPage);
 
-  let divTable = document.querySelector(".table");
+  let divTable = document.querySelector("." + rootDiv);
   divTable.innerHTML = '';
 
   let table = appendTag(divTable, '', 'table');
@@ -31,6 +34,10 @@ function display(numPage) {
 function displayPagination() {
   let divPagination = document.querySelector(".pagination");
   divPagination.innerHtml = '';
+
+  if (numberPages <= 1) {
+    return;
+  }
 
   for (var i = 1; i <= numberPages; i++) {
     appendTag(divPagination, i, 'a');

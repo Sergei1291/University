@@ -11,26 +11,21 @@ public class ProxyConnection implements Connection {
     private ConnectionPool connectionPool;
 
     public ProxyConnection(Connection connection, ConnectionPool connectionPool) {
-
         this.connection = connection;
         this.connectionPool = connectionPool;
-
     }
 
     public Connection getConnection() {
-
         return connection;
     }
 
     @Override
     public Statement createStatement() throws SQLException {
-
         return connection.createStatement();
     }
 
     @Override
     public PreparedStatement prepareStatement(String sql) throws SQLException {
-
         return connection.prepareStatement(sql);
     }
 
@@ -66,7 +61,6 @@ public class ProxyConnection implements Connection {
 
     @Override
     public void close() {
-
         connectionPool.returnConnection(this);
     }
 
@@ -82,7 +76,6 @@ public class ProxyConnection implements Connection {
 
     @Override
     public void setReadOnly(boolean readOnly) throws SQLException {
-
     }
 
     @Override
@@ -92,7 +85,6 @@ public class ProxyConnection implements Connection {
 
     @Override
     public void setCatalog(String catalog) throws SQLException {
-
     }
 
     @Override
@@ -102,7 +94,6 @@ public class ProxyConnection implements Connection {
 
     @Override
     public void setTransactionIsolation(int level) throws SQLException {
-
     }
 
     @Override
@@ -117,7 +108,6 @@ public class ProxyConnection implements Connection {
 
     @Override
     public void clearWarnings() throws SQLException {
-
     }
 
     @Override
@@ -142,12 +132,10 @@ public class ProxyConnection implements Connection {
 
     @Override
     public void setTypeMap(Map<String, Class<?>> map) throws SQLException {
-
     }
 
     @Override
     public void setHoldability(int holdability) throws SQLException {
-
     }
 
     @Override
@@ -167,12 +155,10 @@ public class ProxyConnection implements Connection {
 
     @Override
     public void rollback(Savepoint savepoint) throws SQLException {
-
     }
 
     @Override
     public void releaseSavepoint(Savepoint savepoint) throws SQLException {
-
     }
 
     @Override
@@ -232,12 +218,10 @@ public class ProxyConnection implements Connection {
 
     @Override
     public void setClientInfo(String name, String value) throws SQLClientInfoException {
-
     }
 
     @Override
     public void setClientInfo(Properties properties) throws SQLClientInfoException {
-
     }
 
     @Override
@@ -262,7 +246,6 @@ public class ProxyConnection implements Connection {
 
     @Override
     public void setSchema(String schema) throws SQLException {
-
     }
 
     @Override
@@ -272,12 +255,10 @@ public class ProxyConnection implements Connection {
 
     @Override
     public void abort(Executor executor) throws SQLException {
-
     }
 
     @Override
     public void setNetworkTimeout(Executor executor, int milliseconds) throws SQLException {
-
     }
 
     @Override

@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<fmt:setLocale value="${sessionScope.local}"/>
+<fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="localization" />
 
 <html>
@@ -26,20 +26,24 @@
           <fmt:message key="label.main.context.welcome.site" />
         </h1>
         <br>
-        <c:if test="${requestScope.isRegistrationFinished}">
-          <fmt:message key="label.main.context.registration.finished" />
+        <c:if test="${!isRegistrationFinished}">
+          <fmt:message key="label.main.context.registration.continues" />
           <br>
           <br>
-          <fmt:message key="label.main.context.show" />
+          <fmt:message key="label.main.context.apply.need.authorization" />
+          <br>
           <form method="GET" action="${pageContext.request.contextPath}/controller">
-            <input type="hidden" name="command" value="selectFaculty">
-            <input type="hidden" name="targetPage" value="view">
+            <input type="hidden" name="command" value="authorization" />
             <div class="context-button">
               <button type="submit">
-                <fmt:message key="label.main.context.button.show" />
+                <fmt:message key="label.main.context.button.authorization" />
               </button>
             </div>
           </form>
+        </c:if>
+
+        <c:if test="${isRegistrationFinished}">
+          <jsp:include page="parts/showApplicantsButton.jsp" />
         </c:if>
 
       </div>
