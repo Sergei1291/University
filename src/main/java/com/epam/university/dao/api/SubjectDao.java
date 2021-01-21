@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface SubjectDao extends Dao<Subject> {
 
-    List<Subject> findByFacultyId(int facultyId) throws DaoException;
+    List<Subject> findAllByFaculty(int facultyId) throws DaoException;
 
 }

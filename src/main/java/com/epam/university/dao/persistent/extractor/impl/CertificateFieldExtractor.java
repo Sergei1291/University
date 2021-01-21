@@ -8,7 +8,7 @@ import java.util.Map;
 public class CertificateFieldExtractor extends AbstractFieldExtractor<Certificate> {
 
     private final static String ID_COLUMN = "id";
-    private final static String USER_COLUMN = "user";
+    private final static String APPLICATION_COLUMN = "application";
     private final static String SUBJECT_COLUMN = "subject";
     private final static String MARK_COLUMN = "mark";
 
@@ -17,8 +17,8 @@ public class CertificateFieldExtractor extends AbstractFieldExtractor<Certificat
         int id = certificate.getId();
         mapNameFiledValue.put(ID_COLUMN, id);
 
-        int user = certificate.getUser();
-        mapNameFiledValue.put(USER_COLUMN, user);
+        int application = certificate.getApplication();
+        mapNameFiledValue.put(APPLICATION_COLUMN, application);
 
         int subject = certificate.getSubject();
         mapNameFiledValue.put(SUBJECT_COLUMN, subject);

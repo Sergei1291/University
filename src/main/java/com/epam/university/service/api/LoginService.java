@@ -1,6 +1,6 @@
 package com.epam.university.service.api;
 
-import com.epam.university.model.identifiable.user.UserDto;
+import com.epam.university.model.identifiable.UserDto;
 import com.epam.university.service.ServiceException;
 
 import java.util.Optional;

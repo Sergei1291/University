@@ -23,8 +23,7 @@
       </div>
 
       <div class="context">
-        <br>
-        <c:if test="${sessionScope.userDto.faculty == 0}">
+        <c:if test="${!optionalFullApplication.isPresent()}">
           <fmt:message key="label.personal.application.context.no.application" />
           <br>
           <c:if test="${!isRegistrationFinished}">
@@ -39,15 +38,15 @@
             </form>
           </c:if>
         </c:if>
-        <c:if test="${sessionScope.userDto.faculty != 0}">
+        <c:if test="${optionalFullApplication.isPresent()}">
           <fmt:message key="label.personal.application.context.application" />
           <table width="40%" align="center" border="2">
             <tr>
-              <td>
+              <td width="60%">
                 <fmt:message key="label.personal.application.context.table.surname" />
               </td>
               <td>
-                ${sessionScope.userDto.surname}
+                ${optionalFullApplication.get().userDto.surname}
               </td>
             </tr>
             <tr>
@@ -55,7 +54,7 @@
                 <fmt:message key="label.personal.application.context.table.name" />
               </td>
               <td>
-                ${sessionScope.userDto.name}
+                ${optionalFullApplication.get().userDto.name}
               </td>
             </tr>
             <tr>
@@ -64,7 +63,7 @@
               </td>
               <td>
                 <c:set var="facultyName" scope="page">
-                  <ex:faculty>${sessionScope.userDto.faculty}</ex:faculty>
+                  <ex:faculty>${optionalFullApplication.get().application.faculty}</ex:faculty>
                 </c:set>
                 <fmt:message key="label.enum.faculty.${facultyName}" />
               </td>
@@ -74,7 +73,7 @@
                 <fmt:message key="label.personal.application.context.table.average.mark" />
               </td>
               <td>
-                ${sessionScope.userDto.averageMark}
+                ${optionalFullApplication.get().application.averageMark}
               </td>
             </tr>
             <tr>
@@ -82,16 +81,16 @@
                 <fmt:message key="label.personal.application.context.table.application.status" />
               </td>
               <td>
-                <fmt:message key="label.enum.application.status.${sessionScope.userDto.applicationStatus}" />
+                <fmt:message key="label.enum.application.status.${optionalFullApplication.get().application.status}" />
               </td>
             </tr>
           </table>
           <br>
           <fmt:message key="label.personal.application.context.certificates" />
           <table width="40%" align="center" border="2">
-            <c:forEach var="certificate" items="${certificates}">
+            <c:forEach var="certificate" items="${optionalFullApplication.get().certificates}">
               <tr>
-                <td>
+                <td width="60%">
                   <c:set var="subjectName" scope="page">
                     <ex:subject>${certificate.subject}</ex:subject>
                   </c:set>
@@ -104,9 +103,13 @@
             </c:forEach>
           </table>
           <c:if test="${!isRegistrationFinished}">
+            <br>
             <form method="POST" action="${pageContext.request.contextPath}/controller?command=cancelApplication">
               <div class="context-button">
-                <button type="submit">
+                <c:set var="messageConfirm" scope="page">
+                  <fmt:message key="label.personal.application.context.message.confirm" />
+                </c:set>
+                <button type="submit" onclick="confirm('${messageConfirm}')">
                   <fmt:message key="label.personal.application.context.button.cancel" />
                 </button>
               </div>
@@ -114,9 +117,8 @@
           </c:if>
         </c:if>
         <c:if test="${isRegistrationFinished}">
-          <jsp:include page="parts/showApplicantsButton.jsp" />
+          <jsp:include page="parts/registrationFinished.jsp" />
         </c:if>
-
       </div>
 
     </div>

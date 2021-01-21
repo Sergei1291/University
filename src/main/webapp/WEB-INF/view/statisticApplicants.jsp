@@ -23,14 +23,13 @@
       </div>
 
       <div class="context">
-        <br>
         <fmt:message key="label.enum.faculty.${param.facultyName}" />
         <fmt:message key="label.statistic.applicants.context.faculty" />
         <div class="statistic-table">
           <table>
             <tr class="th">
               <td>
-                <fmt:message key="label.statistic.applicants.context.table.mark" />
+                <fmt:message key="label.statistic.applicants.context.table.marks.sum" />
               </td>
               <td>
                 <fmt:message key="label.statistic.applicants.context.table.applications" />
@@ -39,7 +38,7 @@
             <c:forEach var="counter" items="${counters}">
               <tr class="row">
                 <td>
-                  ${counter.minBorder} - ${counter.maxBorder}
+                  ${counter.minBorder}-${counter.maxBorder}
                 </td>
                 <td>
                   ${counter.value}
@@ -48,14 +47,21 @@
             </c:forEach>
           </table>
         </div>
-        <script>
-          initialize('statistic-table');
-          display();
-        </script>
-
+        <form method="GET" action="${pageContext.request.contextPath}/controller">
+          <input type="hidden" name="command" value="entranceCompany" />
+          <div class="context-button">
+            <button type="submit">
+              <fmt:message key="label.statistic.applicants.context.button.entrance.company" />
+            </button>
+          </div>
+        </form>
       </div>
 
     </div>
+    <script>
+      initialize('statistic-table');
+      display();
+    </script>
   </body>
 
 </html>

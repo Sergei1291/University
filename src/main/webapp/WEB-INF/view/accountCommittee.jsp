@@ -29,24 +29,44 @@
           ${sessionScope.userDto.name} ${sessionScope.userDto.surname}
         </h3>
         <br>
-
         <c:if test="${!isRegistrationFinished}">
-          <br>
           <fmt:message key="label.account.context.apply.continue" />
           <br>
           <form method="POST" action="${pageContext.request.contextPath}/controller?command=closeRegistration">
             <div class="context-button">
-              <button type="submit">
+              <c:set var="messageConfirmClose" scope="page">
+                <fmt:message key="label.account.context.close.message.confirm" />
+              </c:set>
+              <button type="submit" onclick="confirm('${messageConfirmClose}')">
                 <fmt:message key="label.account.context.button.close.registration" />
               </button>
             </div>
           </form>
         </c:if>
-
         <c:if test="${isRegistrationFinished}">
-          <jsp:include page="parts/showApplicantsButton.jsp" />
+          <c:if test="${!isApplicantListReady}">
+            <br>
+            <fmt:message key="label.account.context.registration.finished" />
+            <br><br>
+            <fmt:message key="label.account.context.edit.applications" />
+            <br><br>
+            <fmt:message key="label.account.context.form.entered.list" />
+            <br>
+            <form method="POST" action="${pageContext.request.contextPath}/controller?command=formLists">
+              <div class="context-button">
+                <c:set var="messageConfirmForm" scope="page">
+                  <fmt:message key="label.account.context.form.message.confirm" />
+                </c:set>
+                <button type="submit" onclick="confirm('${messageConfirmForm}')">
+                  <fmt:message key="label.account.context.button.form.entered.list" />
+                </button>
+              </div>
+            </form>
+          </c:if>
+          <c:if test="${isApplicantListReady}">
+            <jsp:include page="parts/showApplicantsButton.jsp" />
+          </c:if>
         </c:if>
-
       </div>
 
     </div>

@@ -16,12 +16,10 @@ public class CertificateDaoImpl extends AbstractPersistentDao<Certificate> imple
     private static final String TABLE_NAME = "certificate";
     private static final String FUNCTION_SUM = "sum";
 
-    private static final String REMOVE_BY_USER_ID =
-            "delete from certificate where user = ?;";
-    private static final String FIND_ALL_BY_USER_ID =
-            "select * from certificate where user = ?;";
-    private static final String FIND_SUM_MARKS_BY_USER_ID =
-            "select SUM(mark) as sum from certificate where user = ?;";
+    private static final String FIND_ALL_BY_APPLICATION =
+            "select * from certificate where application = ?;";
+    private static final String FIND_SUM_MARKS_BY_APPLICATION =
+            "select SUM(mark) as sum from certificate where application = ?;";
 
     public CertificateDaoImpl(Connection connection) {
         super(connection, new CertificateRowMapper(), TABLE_NAME,
@@ -29,20 +27,14 @@ public class CertificateDaoImpl extends AbstractPersistentDao<Certificate> imple
     }
 
     @Override
-    public void removeByUserId(Integer userId) throws DaoException {
-        executeUpdate(REMOVE_BY_USER_ID, userId);
+    public List<Certificate> findALlByApplication(int applicationId) throws DaoException {
+        return executeQuery(FIND_ALL_BY_APPLICATION, applicationId);
     }
 
     @Override
-    public List<Certificate> findALlByUserId(int userId) throws DaoException {
-        return executeQuery(FIND_ALL_BY_USER_ID, userId);
-    }
-
-    @Override
-    public int findSumMarksByUserId(int userId) throws DaoException {
-        List<Integer> results = executeForFunctionResults(FUNCTION_SUM,
-                FIND_SUM_MARKS_BY_USER_ID, userId);
-        return results.get(0);
+    public int findSumMarksByApplication(int applicationId) throws DaoException {
+        return executeForSingleFunctionResult(FUNCTION_SUM,
+                FIND_SUM_MARKS_BY_APPLICATION, applicationId);
     }
 
 }

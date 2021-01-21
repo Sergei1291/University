@@ -10,7 +10,7 @@
   <head>
     <link href="${pageContext.request.contextPath}/static/styles/style.css" rel="stylesheet" type="text/css">
     <title>
-      <fmt:message key="label.registration.success.title" />
+      <fmt:message key="label.success.form.lists.title" />
     </title>
   </head>
 
@@ -23,23 +23,16 @@
 
       <div class="context">
         <h2>
-          <fmt:message key="label.registration.success.context.registration.successful" />
+          <fmt:message key="label.success.form.lists.context.form.lists.successful" />
         </h2>
-        <h3>
-          <fmt:message key="label.registration.success.context.registered.application" />
-        </h3>
-        <h3>
-          ${processedApplications}
-        </h3>
         <form method="GET" action="${pageContext.request.contextPath}/controller">
           <input type="hidden" name="command" value="account" />
           <div class="context-button">
             <button type="submit">
-              <fmt:message key="label.registration.success.context.button.account" />
+              <fmt:message key="label.success.form.lists.context.button.account" />
             </button>
           </div>
         </form>
-
       </div>
 
     </div>

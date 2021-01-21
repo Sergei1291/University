@@ -1,18 +1,21 @@
 package com.epam.university.service.impl;
 
 import com.epam.university.dao.DaoException;
+import com.epam.university.dao.api.UserDtoDao;
 import com.epam.university.dao.helper.DaoHelper;
 import com.epam.university.dao.helper.DaoHelperCreator;
+import com.epam.university.dao.persistent.api.ApplicationDao;
 import com.epam.university.dao.persistent.api.CertificateDao;
-import com.epam.university.dao.persistent.api.UserDtoDao;
+import com.epam.university.model.FullApplication;
+import com.epam.university.model.identifiable.Application;
 import com.epam.university.model.identifiable.Certificate;
-import com.epam.university.model.identifiable.user.UserDto;
+import com.epam.university.model.identifiable.UserDto;
 import com.epam.university.service.ServiceException;
 import com.epam.university.service.api.FacultyApplicantService;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 public class FacultyApplicantServiceImpl implements FacultyApplicantService {
 
@@ -23,19 +26,26 @@ public class FacultyApplicantServiceImpl implements FacultyApplicantService {
     }
 
     @Override
-    public Map<UserDto, List<Certificate>> findFacultyApplicantsInfo(int facultyId) throws ServiceException {
+    public List<FullApplication> findFacultyApplicationsInfo(int facultyId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperCreator.create()) {
-            UserDtoDao userDtoDao = daoHelper.createUserDtoDao();
-            List<UserDto> usersDto = userDtoDao.findAllByFacultyIdAndApplicationStatusNotNull(facultyId);
+            ApplicationDao applicationDao = daoHelper.createApplicationDao();
+            List<Application> applications = applicationDao.findAllByFaculty(facultyId);
 
-            Map<UserDto, List<Certificate>> applicantsInfo = new HashMap<>();
+            UserDtoDao userDtoDao = daoHelper.createUserDtoDao();
             CertificateDao certificateDao = daoHelper.createCertificateDao();
-            for (UserDto userDto : usersDto) {
-                int userId = userDto.getId();
-                List<Certificate> certificates = certificateDao.findALlByUserId(userId);
-                applicantsInfo.put(userDto, certificates);
+            List<FullApplication> applicationsInfo = new ArrayList<>();
+            for (Application application : applications) {
+                int userId = application.getUser();
+                Optional<UserDto> optionalUserDto = userDtoDao.findById(userId);
+                UserDto userDto = optionalUserDto.get();
+
+                int applicationId = application.getId();
+                List<Certificate> certificates
+                        = certificateDao.findALlByApplication(applicationId);
+                FullApplication fullApplication = new FullApplication(application, userDto, certificates);
+                applicationsInfo.add(fullApplication);
             }
-            return applicantsInfo;
+            return applicationsInfo;
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }

@@ -9,7 +9,6 @@
 
   <body>
     <div class="header">
-
       <div class="buttons-container">
         <div class="dropdown">
           <div class="dropdown-head">
@@ -39,7 +38,6 @@
             </form>
           </div>
         </div>
-
         <div class="header-button">
           <c:if test="${sessionScope.userDto == null}">
             <form method="GET" action="${pageContext.request.contextPath}/controller">
@@ -58,13 +56,11 @@
           </c:if>
         </div>
       </div>
-
       <div class="header-name">
         <h1>
           <fmt:message key="label.header" />
         </h1>
       </div>
-
     </div>
   </body>
 

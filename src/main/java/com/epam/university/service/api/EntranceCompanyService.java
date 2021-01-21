@@ -4,6 +4,6 @@ import com.epam.university.service.ServiceException;
 
 public interface EntranceCompanyService extends FacultyService {
 
-    int findNumberApplicantsByFaculty(int facultyId) throws ServiceException;
+    int findNumberApplicationsByFaculty(int facultyId) throws ServiceException;
 
 }

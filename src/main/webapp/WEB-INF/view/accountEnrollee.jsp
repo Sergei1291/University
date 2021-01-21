@@ -33,7 +33,7 @@
           <fmt:message key="label.account.context.apply.continue" />
         </c:if>
         <c:if test="${isRegistrationFinished}">
-          <jsp:include page="parts/showApplicantsButton.jsp" />
+          <jsp:include page="parts/registrationFinished.jsp" />
         </c:if>
       </div>
 

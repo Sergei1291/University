@@ -22,7 +22,6 @@
       </div>
 
       <div class="context">
-        <br>
         <fmt:message key="label.selection.faculty.context.select.faculty" />
         <br><br>
         <c:forEach var="facultyDto" items="${facultiesDto}">
@@ -31,7 +30,7 @@
               <c:when test="${param.targetPage == 'apply'}">
                 <input type="hidden" name="command" value="applicationForm" />
               </c:when>
-              <c:when test="${param.targetPage == 'view'}">
+              <c:when test="${param.targetPage == 'enteredApplicants'}">
                 <input type="hidden" name="command" value="enteredApplicants" />
               </c:when>
               <c:when test="${param.targetPage == 'applications'}">
@@ -47,7 +46,6 @@
             </div>
           </form>
         </c:forEach>
-
       </div>
 
     </div>

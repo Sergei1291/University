@@ -6,4 +6,6 @@ public interface CommitteeService extends RegistrationService {
 
     void closeRegistration() throws ServiceException;
 
+    void formListApplicants() throws ServiceException;
+
 }

@@ -1,10 +1,10 @@
 package com.epam.university.service.impl;
 
 import com.epam.university.dao.DaoException;
+import com.epam.university.dao.api.UserDtoDao;
 import com.epam.university.dao.helper.DaoHelper;
 import com.epam.university.dao.helper.DaoHelperCreator;
-import com.epam.university.dao.persistent.api.UserDtoDao;
-import com.epam.university.model.identifiable.user.UserDto;
+import com.epam.university.model.identifiable.UserDto;
 import com.epam.university.service.ServiceException;
 import com.epam.university.service.api.LoginService;
 

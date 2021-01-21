@@ -115,6 +115,7 @@ button:active, button:focus {
 .context {
     flex:4;
     font-size:25px;
+    padding:20px 0px;
     background-color:#F5F5F5;
     justify-content:center;
 }
@@ -221,19 +222,19 @@ button:active, button:focus {
 }
 
 .table-entrance-company td{
-    padding:5px 5px;
+    padding:2px 5px;
     text-align:center;
     border:solid 2px #000000;
-    font-size:20px;
+    font-size:18px;
 }
 
 .table-entrance-company button{
-    font-size:20px;
+    font-size:15px;
     background-color:#FE9A2E;
     border:solid 1px #000000;
-    padding:4px 2px;
-    margin-bottom:4px;
-    margin-top:6px;
+    padding:1px 3px;
+    margin-bottom:auto;
+    margin-top:5px;
     margin-left:auto;
     margin-right:auto;
     border-radius:2px;
@@ -265,14 +266,14 @@ button:active, button:focus {
     margin:10px 0px;
     left:25%;
     width:50%;
-    min-width:250px;
+    min-width:500px;
     border:solid 2px #000000;
     border-collapse:collapse;
 }
 
 .statistic-table td{
-    padding:4px 4px;
+    padding:2px 4px;
     text-align:center;
     border:solid 2px #000000;
-    font-size:20px;
+    font-size:18px;
 }

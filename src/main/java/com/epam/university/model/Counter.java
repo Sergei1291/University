@@ -1,6 +1,10 @@
 package com.epam.university.model;
 
-public class Counter {
+import java.io.Serializable;
+
+public class Counter implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final int minBorder;
     private final int maxBorder;
@@ -8,8 +12,12 @@ public class Counter {
 
     public Counter(int minBorder, int maxBorder) {
         this.minBorder = minBorder;
-        this.maxBorder=maxBorder;
+        this.maxBorder = maxBorder;
         this.value = 0;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public int getMinBorder() {
@@ -27,6 +35,5 @@ public class Counter {
     public void plusValue() {
         value++;
     }
-
 
 }

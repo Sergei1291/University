@@ -1,25 +1,21 @@
 package com.epam.university.command.impl;
 
+import com.epam.university.command.AbstractErrorCommand;
 import com.epam.university.command.Command;
 import com.epam.university.command.CommandResult;
 import com.epam.university.context.RequestContext;
-import com.epam.university.model.identifiable.user.UserDto;
+import com.epam.university.model.identifiable.UserDto;
 import com.epam.university.service.ServiceException;
 import com.epam.university.service.api.EnrolleeService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-public class CancelApplicationCommand implements Command {
+public class CancelApplicationCommand extends AbstractErrorCommand implements Command {
 
-    private final static Logger LOGGER = LogManager.getLogger();
-
-    private final static String MESSAGE_ATTRIBUTE = "message";
-    private final static String REGISTRATION_CLOSED_ERROR_MESSAGE = "Registration of applications is over." +
-            " You can not make this action";
-    private final static String PAGE_ERROR = "WEB-INF/view/error.jsp";
+    private final static String REGISTRATION_CLOSED_BUNDLE_ERROR_MESSAGE = "registration.closed";
+    private final static String APPLICATION_NOT_FOUND_BUNDLE_ERROR_MESSAGE = "application.not.found";
 
     private final static String USER_DTO_ATTRIBUTE = "userDto";
-    private final static String COMMAND_ACCOUNT = "/University/controller?command=account";
+    private final static String COMMAND_PERSONAL_APPLICATION =
+            "/University/controller?command=personalApplication";
 
     private final EnrolleeService enrolleeService;
 
@@ -30,14 +26,14 @@ public class CancelApplicationCommand implements Command {
     @Override
     public CommandResult execute(RequestContext requestContext) throws ServiceException {
         if (enrolleeService.isRegistrationFinished()) {
-            LOGGER.warn(REGISTRATION_CLOSED_ERROR_MESSAGE);
-            requestContext.setRequestAttribute(MESSAGE_ATTRIBUTE, REGISTRATION_CLOSED_ERROR_MESSAGE);
-            return CommandResult.forward(PAGE_ERROR);
+            return forwardErrorPage(requestContext, REGISTRATION_CLOSED_BUNDLE_ERROR_MESSAGE);
         }
         UserDto userDto = (UserDto) requestContext.getSessionAttribute(USER_DTO_ATTRIBUTE);
-        UserDto userDtoCancelled = enrolleeService.cancelApplication(userDto);
-        requestContext.setSessionAttribute(USER_DTO_ATTRIBUTE, userDtoCancelled);
-        return CommandResult.redirect(COMMAND_ACCOUNT);
+        boolean isApplicationCancelled = enrolleeService.cancelApplication(userDto);
+        if (!isApplicationCancelled) {
+            return forwardErrorPage(requestContext, APPLICATION_NOT_FOUND_BUNDLE_ERROR_MESSAGE);
+        }
+        return CommandResult.redirect(COMMAND_PERSONAL_APPLICATION);
     }
 
 }

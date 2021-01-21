@@ -14,7 +14,6 @@
     <title>
       <fmt:message key="label.applications.info.title" />
     </title>
-
   </head>
 
   <body>
@@ -25,15 +24,14 @@
       </div>
 
       <div class="context">
-        <br>
         <fmt:message key="label.enum.faculty.${param.facultyName}" />
         <fmt:message key="label.applications.info.context.faculty" />
         <br>
-        <c:if test="${empty applicants}">
+        <c:if test="${empty applicationsInfo}">
           <br>
           <fmt:message key="label.applications.info.context.no.applications" />
         </c:if>
-        <c:if test="${!empty applicants}">
+        <c:if test="${!empty applicationsInfo}">
           <div class="table-applicants-info">
             <table>
               <tr class="th">
@@ -56,48 +54,40 @@
                   <fmt:message key="label.applications.info.context.table.application.status" />
                 </td>
               </tr>
-              <c:forEach var="applicant" items="${applicants}" varStatus="status">
+              <c:forEach var="fullApplication" items="${applicationsInfo}" varStatus="status">
                 <tr class="row">
                   <td>
-                    <c:out value="${status.count}" />
+                    ${status.count}
                   </td>
                   <td>
-                    <c:out value="${applicant.surname}" />
+                    ${fullApplication.userDto.surname}
                   </td>
                   <td>
-                    <c:out value="${applicant.name}" />
+                    ${fullApplication.userDto.name}
                   </td>
                   <td>
-                    <c:out value="${applicant.averageMark}" />
+                    ${fullApplication.application.averageMark}
                   </td>
                   <td>
-                    <c:forEach var="certificate" items="${applicantsInfo.get(applicant)}">
+                    <c:forEach var="certificate" items="${fullApplication.certificates}">
                       <c:set var="subjectName" scope="page">
                         <ex:subject>${certificate.subject}</ex:subject>
                       </c:set>
                       <fmt:message key="label.enum.subject.${subjectName}" />
-                      <c:out value="${certificate.mark}" />
+                      ${certificate.mark}
                       <br>
                     </c:forEach>
                   </td>
                   <td>
-                    <fmt:message key="label.enum.application.status.${applicant.applicationStatus}" />
+                    <fmt:message key="label.enum.application.status.${fullApplication.application.status}" />
                   </td>
                 </tr>
               </c:forEach>
             </table>
           </div>
-
           <div class="pagination"></div>
           <br><br>
-          <script>
-            initialize('table-applicants-info', 4);
-            display();
-            displayPagination();
-            eventHandle();
-          </script>
         </c:if>
-
         <form method="GET" action="${pageContext.request.contextPath}/controller">
           <input type="hidden" name="command" value="selectionFaculty" />
           <input type="hidden" name="targetPage" value="applications" />
@@ -107,10 +97,15 @@
             </button>
           </div>
         </form>
-
       </div>
 
     </div>
+    <script>
+      initialize('table-applicants-info', 4);
+      display();
+      displayPagination();
+      eventHandle();
+    </script>
   </body>
 
 </html>

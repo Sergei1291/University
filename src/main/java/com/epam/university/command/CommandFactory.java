@@ -15,14 +15,16 @@ public class CommandFactory {
     private final static String CLOSE_REGISTRATION = "closeRegistration";
     private final static String ENTERED_APPLICANTS = "enteredApplicants";
     private final static String ENTRANCE_COMPANY = "entranceCompany";
+    private final static String FORM_LISTS = "formLists";
     private final static String LOCAL = "local";
     private final static String LOGIN = "login";
     private final static String LOGOUT = "logout";
     private final static String MAIN = "main";
     private final static String PERSONAL_APPLICATION = "personalApplication";
-    private final static String REGISTRATION_SUCCESS = "registrationSuccess";
     private final static String SELECTION_FACULTY = "selectionFaculty";
     private final static String STATISTIC_APPLICANTS = "statisticApplicants";
+    private final static String SUCCESS_FORM_LISTS = "successFormLists";
+    private final static String SUCCESS_REGISTRATION = "successRegistration";
 
     public static Command create(String command) {
         switch (command) {
@@ -41,9 +43,11 @@ public class CommandFactory {
             case CLOSE_REGISTRATION:
                 return new CloseRegistrationCommand(new CommitteeServiceImpl(new DaoHelperCreator()));
             case ENTERED_APPLICANTS:
-                return new EnteredApplicantsCommand(new EnteredApplicantServiceImpl(new DaoHelperCreator()));
+                return new EnteredApplicantsCommand(new EnteredUserServiceImpl(new DaoHelperCreator()));
             case ENTRANCE_COMPANY:
                 return new EntranceCompanyCommand(new EntranceCompanyServiceImpl(new DaoHelperCreator()));
+            case FORM_LISTS:
+                return new FormListsCommand(new CommitteeServiceImpl(new DaoHelperCreator()));
             case LOCAL:
                 return new LocalCommand();
             case LOGIN:
@@ -54,12 +58,14 @@ public class CommandFactory {
                 return new MainCommand(new RegistrationServiceImpl(new DaoHelperCreator()));
             case PERSONAL_APPLICATION:
                 return new PersonalApplicationCommand(new PersonalApplicationServiceImpl(new DaoHelperCreator()));
-            case REGISTRATION_SUCCESS:
-                return new RegistrationSuccessCommand(new RegistrationServiceImpl(new DaoHelperCreator()));
             case SELECTION_FACULTY:
                 return new SelectionFacultyCommand(new FacultyDtoServiceImpl(new DaoHelperCreator()));
             case STATISTIC_APPLICANTS:
-                return new StatisticApplicantsCommand(new StatisticApplicantServiceImpl(new DaoHelperCreator()));
+                return new StatisticApplicantsCommand(new StatisticApplicationServiceImpl(new DaoHelperCreator()));
+            case SUCCESS_FORM_LISTS:
+                return new SuccessFormListsCommand(new RegistrationServiceImpl(new DaoHelperCreator()));
+            case SUCCESS_REGISTRATION:
+                return new SuccessRegistrationCommand(new RegistrationServiceImpl(new DaoHelperCreator()));
             default:
                 throw new IllegalArgumentException("illegal command " + command);
         }

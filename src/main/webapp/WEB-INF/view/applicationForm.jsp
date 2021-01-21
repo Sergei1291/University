@@ -22,11 +22,9 @@
       </div>
 
       <div class="context">
-        <br>
         <fmt:message key="label.enum.faculty.${param.facultyName}" />
         <fmt:message key="label.application.form.context.faculty" />
         <br>
-
         <div class="form">
           <form method="POST" action="${pageContext.request.contextPath}/controller?command=apply">
             <input type="hidden" name="firstSubjectId" value="${subjects.get(0).id}" />
@@ -62,13 +60,25 @@
               <input type="number" required min="0" max="100" name="averageMark" />
             </div>
             <div class="button-send">
-              <button type="submit">
+              <c:set var="messageConfirm" scope="page">
+                <fmt:message key="label.application.form.context.message.confirm" />
+              </c:set>
+              <button type="submit" onclick="confirm('${messageConfirm}')">
                 <fmt:message key="label.application.form.context.button.apply" />
               </button>
             </div>
           </form>
         </div>
-
+        <br>
+        <form method="GET" action="${pageContext.request.contextPath}/controller">
+          <input type="hidden" name="command" value="selectionFaculty" />
+          <input type="hidden" name="targetPage" value="apply" />
+          <div class="context-button">
+            <button type="submit">
+              <fmt:message key="label.application.form.context.button.choice.faculty" />
+            </button>
+          </div>
+        </form>
       </div>
 
     </div>

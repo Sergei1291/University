@@ -16,7 +16,12 @@
 
   <body>
     <h2>
-      ${message}
+      <c:if test="${!empty message}">
+        ${message}
+      </c:if>
+      <c:if test="${isLocalizeMessage}">
+        <fmt:message key="label.error.message.${localizeMessage}" />
+      </c:if>
     </h2>
   </body>
 

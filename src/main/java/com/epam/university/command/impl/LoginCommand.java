@@ -3,7 +3,7 @@ package com.epam.university.command.impl;
 import com.epam.university.command.Command;
 import com.epam.university.command.CommandResult;
 import com.epam.university.context.RequestContext;
-import com.epam.university.model.identifiable.user.UserDto;
+import com.epam.university.model.identifiable.UserDto;
 import com.epam.university.service.ServiceException;
 import com.epam.university.service.api.LoginService;
 

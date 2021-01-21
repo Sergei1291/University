@@ -34,11 +34,13 @@ public class EntranceCompanyCommand implements Command {
         return CommandResult.forward(PAGE_ENTRANCE_COMPANY);
     }
 
-    private Map<Integer, Integer> createNumbersApplications(List<Faculty> faculties) throws ServiceException {
+    private Map<Integer, Integer> createNumbersApplications(List<Faculty> faculties)
+            throws ServiceException {
         Map<Integer, Integer> numbersApplications = new HashMap<>();
         for (Faculty faculty : faculties) {
             int facultyId = faculty.getId();
-            int numberApplications = entranceCompanyService.findNumberApplicantsByFaculty(facultyId);
+            int numberApplications =
+                    entranceCompanyService.findNumberApplicationsByFaculty(facultyId);
             numbersApplications.put(facultyId, numberApplications);
         }
         return numbersApplications;

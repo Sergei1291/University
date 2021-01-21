@@ -4,8 +4,10 @@ import com.epam.university.service.ServiceException;
 
 public interface RegistrationService {
 
+    boolean isApplicantListReady() throws ServiceException;
+
     boolean isRegistrationFinished() throws ServiceException;
 
-    int findNumProcessedApplications() throws ServiceException;
+    int findNumRegisteredApplications() throws ServiceException;
 
 }

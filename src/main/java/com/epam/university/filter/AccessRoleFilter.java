@@ -1,7 +1,9 @@
 package com.epam.university.filter;
 
-import com.epam.university.model.identifiable.user.Role;
-import com.epam.university.model.identifiable.user.UserDto;
+import com.epam.university.model.identifiable.UserDto;
+import com.epam.university.model.identifiable.UserRole;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -10,14 +12,20 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class AccessRoleFilter extends AbstractFilter implements Filter {
+public class AccessRoleFilter implements Filter {
+
+    private final static Logger LOGGER = LogManager.getLogger();
+
+    private final static String HAVE_NOT_RIGHTS_BUNDLE_ERROR_MESSAGE = "have.not.rights";
+    private final static String IS_LOCALIZE_MESSAGE_ATTRIBUTE = "isLocalizeMessage";
+    private final static String LOCALIZE_MESSAGE_ATTRIBUTE = "localizeMessage";
+    private final static String PAGE_ERROR = "WEB-INF/view/error.jsp";
 
     private final static String COMMAND_PARAMETER = "command";
     private final static String USER_DTO_ATTRIBUTE = "userDto";
-    private final static String ERROR_MESSAGE = "You don't have rights for target page.";
+
     private final static List<String> GUEST_COMMANDS = Arrays.asList("local",
             "authorization",
-            "detailsFaculty",
             "enteredApplicants",
             "entranceCompany",
             "login",
@@ -39,13 +47,14 @@ public class AccessRoleFilter extends AbstractFilter implements Filter {
             "account",
             "applicationsInfo",
             "closeRegistration",
-            "detailsFaculty",
             "enteredApplicants",
             "entranceCompany",
+            "formLists",
             "logout",
-            "registrationSuccess",
             "selectionFaculty",
-            "statisticApplicants");
+            "statisticApplicants",
+            "successFormLists",
+            "successRegistration");
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -60,7 +69,7 @@ public class AccessRoleFilter extends AbstractFilter implements Filter {
         String command = request.getParameter(COMMAND_PARAMETER);
         boolean accessFlag = findAccessFlag(userDto, command);
         if (!accessFlag) {
-            dispatchToErrorPage(servletRequest, servletResponse, ERROR_MESSAGE);
+            dispatchToErrorPage(servletRequest, servletResponse);
             return;
         }
         filterChain.doFilter(servletRequest, servletResponse);
@@ -68,7 +77,7 @@ public class AccessRoleFilter extends AbstractFilter implements Filter {
 
     private boolean findAccessFlag(UserDto userDto, String command) {
         if (userDto != null) {
-            Role role = userDto.getRole();
+            UserRole role = userDto.getRole();
             switch (role) {
                 case ENROLLEE:
                     return ENROLLEE_COMMANDS.contains(command);
@@ -84,6 +93,16 @@ public class AccessRoleFilter extends AbstractFilter implements Filter {
 
     @Override
     public void destroy() {
+    }
+
+    private void dispatchToErrorPage(ServletRequest servletRequest, ServletResponse servletResponse)
+            throws ServletException, IOException {
+        LOGGER.warn(HAVE_NOT_RIGHTS_BUNDLE_ERROR_MESSAGE);
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher(PAGE_ERROR);
+        request.setAttribute(IS_LOCALIZE_MESSAGE_ATTRIBUTE, true);
+        request.setAttribute(LOCALIZE_MESSAGE_ATTRIBUTE, HAVE_NOT_RIGHTS_BUNDLE_ERROR_MESSAGE);
+        requestDispatcher.forward(servletRequest, servletResponse);
     }
 
 }

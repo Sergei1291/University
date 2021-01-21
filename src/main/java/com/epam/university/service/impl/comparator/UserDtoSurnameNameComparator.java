@@ -1,6 +1,6 @@
 package com.epam.university.service.impl.comparator;
 
-import com.epam.university.model.identifiable.user.UserDto;
+import com.epam.university.model.identifiable.UserDto;
 
 import java.util.Comparator;
 

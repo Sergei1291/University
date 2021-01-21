@@ -22,7 +22,6 @@
       </div>
 
       <div class="context">
-
         <div class="form">
           <form method="POST" action="${pageContext.request.contextPath}/controller?command=login">
             <div class="input-form">
@@ -46,11 +45,9 @@
             </div>
           </form>
         </div>
-
         <c:if test="${isVisibleErrorMessage}">
           <fmt:message key="label.authorization.context.error.message" />
         </c:if>
-
       </div>
 
     </div>

@@ -35,7 +35,7 @@ public class FacultyServiceImpl extends FacultyDtoServiceImpl implements Faculty
     public List<Subject> findFacultySubjects(int facultyId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperCreator.create()) {
             SubjectDao subjectDao = daoHelper.createSubjectDao();
-            return subjectDao.findByFacultyId(facultyId);
+            return subjectDao.findAllByFaculty(facultyId);
         } catch (DaoException e) {
             throw new ServiceException(e.getMessage(), e);
         }

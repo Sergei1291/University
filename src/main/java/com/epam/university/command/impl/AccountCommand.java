@@ -3,8 +3,8 @@ package com.epam.university.command.impl;
 import com.epam.university.command.Command;
 import com.epam.university.command.CommandResult;
 import com.epam.university.context.RequestContext;
-import com.epam.university.model.identifiable.user.Role;
-import com.epam.university.model.identifiable.user.UserDto;
+import com.epam.university.model.identifiable.UserDto;
+import com.epam.university.model.identifiable.UserRole;
 import com.epam.university.service.ServiceException;
 import com.epam.university.service.api.RegistrationService;
 
@@ -12,6 +12,7 @@ public class AccountCommand implements Command {
 
     private final static String USER_DTO_ATTRIBUTE = "userDto";
     private final static String IS_REGISTRATION_FINISHED_ATTRIBUTE = "isRegistrationFinished";
+    private final static String IS_APPLICANT_LIST_READY_ATTRIBUTE = "isApplicantListReady";
     private final static String PAGE_ACCOUNT_ENROLLEE = "WEB-INF/view/accountEnrollee.jsp";
     private final static String PAGE_ACCOUNT_COMMITTEE = "WEB-INF/view/accountCommittee.jsp";
 
@@ -26,12 +27,15 @@ public class AccountCommand implements Command {
         boolean isRegistrationFinished = registrationService.isRegistrationFinished();
         requestContext.setRequestAttribute(IS_REGISTRATION_FINISHED_ATTRIBUTE, isRegistrationFinished);
 
+        boolean isApplicantListReady = registrationService.isApplicantListReady();
+        requestContext.setRequestAttribute(IS_APPLICANT_LIST_READY_ATTRIBUTE, isApplicantListReady);
+
         return forwardPageByUserRole(requestContext);
     }
 
     private CommandResult forwardPageByUserRole(RequestContext requestContext) {
         UserDto userDto = (UserDto) requestContext.getSessionAttribute(USER_DTO_ATTRIBUTE);
-        Role role = userDto.getRole();
+        UserRole role = userDto.getRole();
         switch (role) {
             case ENROLLEE:
                 return CommandResult.forward(PAGE_ACCOUNT_ENROLLEE);

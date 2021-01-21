@@ -1,24 +1,19 @@
 package com.epam.university.command.impl;
 
+import com.epam.university.command.AbstractErrorCommand;
 import com.epam.university.command.Command;
 import com.epam.university.command.CommandResult;
 import com.epam.university.context.RequestContext;
-import com.epam.university.model.identifiable.user.UserDto;
+import com.epam.university.model.identifiable.UserDto;
 import com.epam.university.service.ServiceException;
 import com.epam.university.service.api.EnrolleeService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
-public class ApplyCommand implements Command {
+public class ApplyCommand extends AbstractErrorCommand implements Command {
 
-    private final static Logger LOGGER = LogManager.getLogger();
-
-    private final static String MESSAGE_ATTRIBUTE = "message";
-    private final static String REGISTRATION_CLOSED_ERROR_MESSAGE = "Registration of applications is over." +
-            " You can not make this action";
-    private final static String PAGE_ERROR = "WEB-INF/view/error.jsp";
+    private final static String REGISTRATION_CLOSED_BUNDLE_ERROR_MESSAGE = "registration.closed";
+    private final static String APPLICATION_IS_NOT_APPLIED_BUNDLE_ERROR_MESSAGE = "failed.apply";
 
     private final static String FIRST_SUBJECT_ID_PARAMETER = "firstSubjectId";
     private final static String SECOND_SUBJECT_ID_PARAMETER = "secondSubjectId";
@@ -32,7 +27,8 @@ public class ApplyCommand implements Command {
     private final static String USER_DTO_ATTRIBUTE = "userDto";
     private final static String FACULTY_ID_PARAMETER = "facultyId";
     private final static String AVERAGE_MARK_PARAMETER = "averageMark";
-    private final static String COMMAND_ACCOUNT = "/University/controller?command=account";
+    private final static String COMMAND_PERSONAL_APPLICATION =
+            "/University/controller?command=personalApplication";
 
     private final EnrolleeService enrolleeService;
 
@@ -43,17 +39,17 @@ public class ApplyCommand implements Command {
     @Override
     public CommandResult execute(RequestContext requestContext) throws ServiceException {
         if (enrolleeService.isRegistrationFinished()) {
-            LOGGER.warn(REGISTRATION_CLOSED_ERROR_MESSAGE);
-            requestContext.setRequestAttribute(MESSAGE_ATTRIBUTE, REGISTRATION_CLOSED_ERROR_MESSAGE);
-            return CommandResult.forward(PAGE_ERROR);
+            return forwardErrorPage(requestContext, REGISTRATION_CLOSED_BUNDLE_ERROR_MESSAGE);
         }
         UserDto userDto = (UserDto) requestContext.getSessionAttribute(USER_DTO_ATTRIBUTE);
         Integer facultyId = getParameterByName(requestContext, FACULTY_ID_PARAMETER);
         Integer averageMark = getParameterByName(requestContext, AVERAGE_MARK_PARAMETER);
         Map<Integer, Integer> subjectsMarks = findSubjectsMarks(requestContext);
-        UserDto userDtoApplied = enrolleeService.apply(userDto, facultyId, averageMark, subjectsMarks);
-        requestContext.setSessionAttribute(USER_DTO_ATTRIBUTE, userDtoApplied);
-        return CommandResult.redirect(COMMAND_ACCOUNT);
+        boolean isApplicationApplied = enrolleeService.apply(userDto, facultyId, averageMark, subjectsMarks);
+        if (!isApplicationApplied) {
+            return forwardErrorPage(requestContext, APPLICATION_IS_NOT_APPLIED_BUNDLE_ERROR_MESSAGE);
+        }
+        return CommandResult.redirect(COMMAND_PERSONAL_APPLICATION);
     }
 
     private Integer getParameterByName(RequestContext requestContext, String parameterName) {

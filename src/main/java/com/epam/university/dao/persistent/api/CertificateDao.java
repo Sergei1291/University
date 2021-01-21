@@ -7,10 +7,8 @@ import java.util.List;
 
 public interface CertificateDao extends PersistentDao<Certificate> {
 
-    void removeByUserId(Integer userId) throws DaoException;
+    List<Certificate> findALlByApplication(int applicationId) throws DaoException;
 
-    List<Certificate> findALlByUserId(int userId) throws DaoException;
-
-    int findSumMarksByUserId(int userId) throws DaoException;
+    int findSumMarksByApplication(int applicationId) throws DaoException;
 
 }

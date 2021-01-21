@@ -93,6 +93,12 @@ public abstract class AbstractDao<T extends Identifiable> implements Dao<T> {
         }
     }
 
+    protected int executeForSingleFunctionResult(String functionName,
+                                                 String query, Object... params) throws DaoException {
+        List<Integer> results = executeForFunctionResults(functionName, query, params);
+        return results.get(0);
+    }
+
     private PreparedStatement createStatement(String query, Object... params) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(query);
         for (int i = 1; i <= params.length; i++) {

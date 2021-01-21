@@ -13,7 +13,7 @@ public class SubjectDaoImpl extends AbstractDao<Subject> implements SubjectDao {
 
     private static final String TABLE_NAME = "subject";
 
-    private static final String FIND_BY_FACULTY_ID =
+    private static final String FIND_ALL_BY_FACULTY =
             "select subject.id, subject.name from faculty_subject inner join subject " +
                     "on faculty_subject.subject = subject.id where faculty_subject.faculty = ?;";
 
@@ -22,8 +22,8 @@ public class SubjectDaoImpl extends AbstractDao<Subject> implements SubjectDao {
     }
 
     @Override
-    public List<Subject> findByFacultyId(int facultyId) throws DaoException {
-        return executeQuery(FIND_BY_FACULTY_ID, facultyId);
+    public List<Subject> findAllByFaculty(int facultyId) throws DaoException {
+        return executeQuery(FIND_ALL_BY_FACULTY, facultyId);
     }
 
 }

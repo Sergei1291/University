@@ -5,8 +5,8 @@ import com.epam.university.service.ServiceException;
 
 import java.util.List;
 
-public interface StatisticApplicantService {
+public interface StatisticApplicationService {
 
-    List<Counter> findFacultyStatisticApplicantsMark(int facultyId) throws ServiceException;
+    List<Counter> findFacultyStatisticApplications(int facultyId) throws ServiceException;
 
 }

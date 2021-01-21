@@ -1,47 +1,39 @@
 package com.epam.university.command.impl;
 
+import com.epam.university.command.AbstractErrorCommand;
 import com.epam.university.command.Command;
 import com.epam.university.command.CommandResult;
 import com.epam.university.context.RequestContext;
-import com.epam.university.model.identifiable.user.UserDto;
+import com.epam.university.model.identifiable.UserDto;
 import com.epam.university.service.ServiceException;
-import com.epam.university.service.api.EnteredApplicantService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.epam.university.service.api.EnteredUserService;
 
 import java.util.List;
 
-public class EnteredApplicantsCommand implements Command {
+public class EnteredApplicantsCommand extends AbstractErrorCommand implements Command {
 
-    private final static Logger LOGGER = LogManager.getLogger();
-
-    private final static String MESSAGE_ATTRIBUTE = "message";
-    private final static String REGISTRATION_OPENED_ERROR_MESSAGE = "Registration of applications continues." +
-            " You can not make this action";
-    private final static String PAGE_ERROR = "WEB-INF/view/error.jsp";
+    private final static String LISTS_NOT_FORMED_BUNDLE_ERROR_MESSAGE = "lists.not.formed";
 
     private final static int INDEX_FIRST_VALUE = 0;
     private final static String FACULTY_ID_PARAMETER = "facultyId";
     private final static String ENTERED_APPLICANTS_ATTRIBUTE = "enteredApplicants";
     private final static String PAGE_ENTERED_APPLICANTS = "WEB-INF/view/enteredApplicants.jsp";
 
-    private final EnteredApplicantService enteredApplicantService;
+    private final EnteredUserService enteredUserService;
 
-    public EnteredApplicantsCommand(EnteredApplicantService enteredApplicantService) {
-        this.enteredApplicantService = enteredApplicantService;
+    public EnteredApplicantsCommand(EnteredUserService enteredUserService) {
+        this.enteredUserService = enteredUserService;
     }
 
     @Override
     public CommandResult execute(RequestContext requestContext) throws ServiceException {
-        if (!enteredApplicantService.isRegistrationFinished()) {
-            LOGGER.warn(REGISTRATION_OPENED_ERROR_MESSAGE);
-            requestContext.setRequestAttribute(MESSAGE_ATTRIBUTE, REGISTRATION_OPENED_ERROR_MESSAGE);
-            return CommandResult.forward(PAGE_ERROR);
+        if (!enteredUserService.isApplicantListReady()) {
+            return forwardErrorPage(requestContext, LISTS_NOT_FORMED_BUNDLE_ERROR_MESSAGE);
         }
         String facultyId = requestContext.getRequestParameter(FACULTY_ID_PARAMETER)[INDEX_FIRST_VALUE];
         int facultyIdInt = Integer.parseInt(facultyId);
         List<UserDto> enteredApplicants =
-                enteredApplicantService.findEnteredApplicantsByFaculty(facultyIdInt);
+                enteredUserService.findEnteredUsersByFaculty(facultyIdInt);
         requestContext.setRequestAttribute(ENTERED_APPLICANTS_ATTRIBUTE, enteredApplicants);
         return CommandResult.forward(PAGE_ENTERED_APPLICANTS);
     }

@@ -13,7 +13,6 @@
     <title>
       <fmt:message key="label.entered.applicants.title" />
     </title>
-
   </head>
 
   <body>
@@ -24,7 +23,6 @@
       </div>
 
       <div class="context">
-        <br>
         <fmt:message key="label.enum.faculty.${param.facultyName}" />
         <fmt:message key="label.entered.applicants.context.faculty" />
         <br>
@@ -49,42 +47,39 @@
               <c:forEach var="applicant" items="${enteredApplicants}" varStatus="status">
                 <tr class="row">
                   <td>
-                    <c:out value="${status.count}" />
+                    ${status.count}
                   </td>
                   <td>
-                    <c:out value="${applicant.surname}" />
+                    ${applicant.surname}
                   </td>
                   <td>
-                    <c:out value="${applicant.name}" />
+                    ${applicant.name}
                   </td>
                 </tr>
               </c:forEach>
             </table>
           </div>
-
           <div class="pagination"></div>
           <br><br>
-          <script>
-            initialize('table-entered-applicants', 5);
-            display();
-            displayPagination();
-            eventHandle();
-          </script>
         </c:if>
-
         <form method="GET" action="${pageContext.request.contextPath}/controller">
           <input type="hidden" name="command" value="selectionFaculty" />
-          <input type="hidden" name="targetPage" value="view" />
+          <input type="hidden" name="targetPage" value="enteredApplicants" />
           <div class="context-button">
             <button type="submit">
               <fmt:message key="label.entered.applicants.context.button.choice.faculty" />
             </button>
           </div>
         </form>
-
       </div>
 
     </div>
+    <script>
+      initialize('table-entered-applicants', 5);
+      display();
+      displayPagination();
+      eventHandle();
+    </script>
   </body>
 
 </html>
