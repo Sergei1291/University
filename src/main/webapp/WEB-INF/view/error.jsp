@@ -19,7 +19,7 @@
       <c:if test="${!empty message}">
         ${message}
       </c:if>
-      <c:if test="${isLocalizeMessage}">
+      <c:if test="${!empty localizeMessage}">
         <fmt:message key="label.error.message.${localizeMessage}" />
       </c:if>
     </h2>

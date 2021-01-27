@@ -43,4 +43,38 @@ public final class Application implements Identifiable {
         return status;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Application that = (Application) o;
+        if (id != that.id) {
+            return false;
+        }
+        if (user != that.user) {
+            return false;
+        }
+        if (faculty != that.faculty) {
+            return false;
+        }
+        if (averageMark != that.averageMark) {
+            return false;
+        }
+        return status == that.status;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + user;
+        result = 31 * result + faculty;
+        result = 31 * result + averageMark;
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        return result;
+    }
+
 }

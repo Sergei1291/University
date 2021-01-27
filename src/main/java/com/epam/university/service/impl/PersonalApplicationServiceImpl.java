@@ -11,22 +11,31 @@ import com.epam.university.model.identifiable.Certificate;
 import com.epam.university.model.identifiable.UserDto;
 import com.epam.university.service.ServiceException;
 import com.epam.university.service.api.PersonalApplicationService;
+import com.epam.university.validator.Validator;
 
 import java.util.List;
 import java.util.Optional;
 
-public class PersonalApplicationServiceImpl extends RegistrationServiceImpl implements PersonalApplicationService {
+public class PersonalApplicationServiceImpl extends RegistrationServiceImpl
+        implements PersonalApplicationService {
 
-    public PersonalApplicationServiceImpl(DaoHelperCreator daoHelperCreator) {
+    private final Validator<UserDto> validator;
+
+    public PersonalApplicationServiceImpl(DaoHelperCreator daoHelperCreator,
+                                          Validator<UserDto> validator) {
         super(daoHelperCreator);
+        this.validator = validator;
     }
 
     @Override
     public Optional<FullApplication> findUserApplication(UserDto userDto) throws ServiceException {
+        if (!validator.isValid(userDto)) {
+            return Optional.empty();
+        }
         try (DaoHelper daoHelper = daoHelperCreator.create()) {
             ApplicationDao applicationDao = daoHelper.createApplicationDao();
             int userId = userDto.getId();
-            Optional<Application> optionalApplication = applicationDao.findActualByUser(userId);
+            Optional<Application> optionalApplication = applicationDao.findByUserAndStatusNotCancelled(userId);
             if (!optionalApplication.isPresent()) {
                 return Optional.empty();
             }

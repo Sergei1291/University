@@ -109,7 +109,7 @@
                 <c:set var="messageConfirm" scope="page">
                   <fmt:message key="label.personal.application.context.message.confirm" />
                 </c:set>
-                <button type="submit" onclick="confirm('${messageConfirm}')">
+                <button type="submit" onclick="return confirm('${messageConfirm}')">
                   <fmt:message key="label.personal.application.context.button.cancel" />
                 </button>
               </div>

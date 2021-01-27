@@ -1,8 +1,5 @@
 package com.epam.university.model.identifiable;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public final class Faculty implements Identifiable {
 
     private static final long serialVersionUID = 1L;
@@ -10,17 +7,11 @@ public final class Faculty implements Identifiable {
     private final int id;
     private final FacultyName name;
     private final int recruitment;
-    private final List<Subject> subjects;
 
-    public Faculty(int id, FacultyName name, int recruitment, List<Subject> subjects) {
+    public Faculty(int id, FacultyName name, int recruitment) {
         this.id = id;
         this.name = name;
-        this.subjects = subjects;
         this.recruitment = recruitment;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
     }
 
     @Override
@@ -36,8 +27,30 @@ public final class Faculty implements Identifiable {
         return recruitment;
     }
 
-    public List<Subject> getSubjects() {
-        return new ArrayList<>(subjects);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Faculty that = (Faculty) o;
+        if (id != that.id) {
+            return false;
+        }
+        if (recruitment != that.recruitment) {
+            return false;
+        }
+        return name == that.name;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + recruitment;
+        return result;
     }
 
 }

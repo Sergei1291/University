@@ -1,8 +1,8 @@
 package com.epam.university.dao.mapper.impl;
 
 import com.epam.university.dao.mapper.RowMapper;
-import com.epam.university.model.identifiable.UserRole;
 import com.epam.university.model.identifiable.UserDto;
+import com.epam.university.model.identifiable.UserRole;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +20,6 @@ public class UserDtoRowMapper implements RowMapper<UserDto> {
         UserRole role = findUserRole(resultSet);
         String name = resultSet.getString(NAME_COLUMN);
         String surname = resultSet.getString(SURNAME_COLUMN);
-
         return new UserDto(id, role, name, surname);
     }
 

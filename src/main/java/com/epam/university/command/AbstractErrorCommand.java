@@ -8,14 +8,18 @@ public abstract class AbstractErrorCommand {
 
     private final static Logger LOGGER = LogManager.getLogger();
 
-    private final static String IS_LOCALIZE_MESSAGE_ATTRIBUTE = "isLocalizeMessage";
     private final static String LOCALIZE_MESSAGE_ATTRIBUTE = "localizeMessage";
+    private final static String MESSAGE_ATTRIBUTE = "message";
     private final static String PAGE_ERROR = "WEB-INF/view/error.jsp";
 
-    protected CommandResult forwardErrorPage(RequestContext requestContext, String errorMessage) {
+    protected CommandResult forwardErrorPage(RequestContext requestContext,
+                                             String errorMessage, boolean isLocalizedMassage) {
         LOGGER.warn(errorMessage);
-        requestContext.setRequestAttribute(IS_LOCALIZE_MESSAGE_ATTRIBUTE, true);
-        requestContext.setRequestAttribute(LOCALIZE_MESSAGE_ATTRIBUTE, errorMessage);
+        if (isLocalizedMassage) {
+            requestContext.setRequestAttribute(LOCALIZE_MESSAGE_ATTRIBUTE, errorMessage);
+        } else {
+            requestContext.setRequestAttribute(MESSAGE_ATTRIBUTE, errorMessage);
+        }
         return CommandResult.forward(PAGE_ERROR);
     }
 

@@ -1,11 +1,12 @@
 package com.epam.university.dao.persistent.extractor.impl;
 
-import com.epam.university.dao.persistent.extractor.AbstractFieldExtractor;
+import com.epam.university.dao.persistent.extractor.FieldExtractor;
 import com.epam.university.model.identifiable.Certificate;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class CertificateFieldExtractor extends AbstractFieldExtractor<Certificate> {
+public class CertificateFieldExtractor implements FieldExtractor<Certificate> {
 
     private final static String ID_COLUMN = "id";
     private final static String APPLICATION_COLUMN = "application";
@@ -13,7 +14,9 @@ public class CertificateFieldExtractor extends AbstractFieldExtractor<Certificat
     private final static String MARK_COLUMN = "mark";
 
     @Override
-    protected void initializeMap(Map<String, Object> mapNameFiledValue, Certificate certificate) {
+    public Map<String, Object> extract(Certificate certificate) {
+        Map<String, Object> mapNameFiledValue = new LinkedHashMap<>();
+
         int id = certificate.getId();
         mapNameFiledValue.put(ID_COLUMN, id);
 
@@ -25,6 +28,8 @@ public class CertificateFieldExtractor extends AbstractFieldExtractor<Certificat
 
         int mark = certificate.getMark();
         mapNameFiledValue.put(MARK_COLUMN, mark);
+
+        return mapNameFiledValue;
     }
 
 }

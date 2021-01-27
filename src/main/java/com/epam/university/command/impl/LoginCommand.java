@@ -17,6 +17,7 @@ public class LoginCommand implements Command {
     private final static String IS_VISIBLE_ERROR_MESSAGE_ATTRIBUTE = "isVisibleErrorMessage";
     private final static String USER_DTO_ATTRIBUTE = "userDto";
     private final static String PAGE_AUTHORIZATION = "WEB-INF/view/authorization.jsp";
+
     private final static String COMMAND_ACCOUNT = "/University/controller?command=account";
 
     private final LoginService loginService;

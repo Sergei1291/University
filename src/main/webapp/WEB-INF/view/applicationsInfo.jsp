@@ -24,7 +24,10 @@
       </div>
 
       <div class="context">
-        <fmt:message key="label.enum.faculty.${param.facultyName}" />
+        <c:set var="facultyName" scope="page">
+          <ex:faculty>${param.facultyId}</ex:faculty>
+        </c:set>
+        <fmt:message key="label.enum.faculty.${facultyName}" />
         <fmt:message key="label.applications.info.context.faculty" />
         <br>
         <c:if test="${empty applicationsInfo}">

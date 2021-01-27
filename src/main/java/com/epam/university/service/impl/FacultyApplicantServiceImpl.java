@@ -12,6 +12,7 @@ import com.epam.university.model.identifiable.Certificate;
 import com.epam.university.model.identifiable.UserDto;
 import com.epam.university.service.ServiceException;
 import com.epam.university.service.api.FacultyApplicantService;
+import com.epam.university.validator.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +20,19 @@ import java.util.Optional;
 
 public class FacultyApplicantServiceImpl implements FacultyApplicantService {
 
-    private DaoHelperCreator daoHelperCreator;
+    private final DaoHelperCreator daoHelperCreator;
+    private final Validator<Integer> validator;
 
-    public FacultyApplicantServiceImpl(DaoHelperCreator daoHelperCreator) {
+    public FacultyApplicantServiceImpl(DaoHelperCreator daoHelperCreator, Validator<Integer> validator) {
         this.daoHelperCreator = daoHelperCreator;
+        this.validator = validator;
     }
 
     @Override
     public List<FullApplication> findFacultyApplicationsInfo(int facultyId) throws ServiceException {
+        if (!validator.isValid(facultyId)) {
+            return new ArrayList<>();
+        }
         try (DaoHelper daoHelper = daoHelperCreator.create()) {
             ApplicationDao applicationDao = daoHelper.createApplicationDao();
             List<Application> applications = applicationDao.findAllByFaculty(facultyId);
@@ -37,7 +43,7 @@ public class FacultyApplicantServiceImpl implements FacultyApplicantService {
             for (Application application : applications) {
                 int userId = application.getUser();
                 Optional<UserDto> optionalUserDto = userDtoDao.findById(userId);
-                UserDto userDto = optionalUserDto.get();
+                UserDto userDto = optionalUserDto.orElseThrow(() -> new ServiceException("user not found " + userId));
 
                 int applicationId = application.getId();
                 List<Certificate> certificates

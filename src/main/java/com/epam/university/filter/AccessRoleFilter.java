@@ -17,7 +17,6 @@ public class AccessRoleFilter implements Filter {
     private final static Logger LOGGER = LogManager.getLogger();
 
     private final static String HAVE_NOT_RIGHTS_BUNDLE_ERROR_MESSAGE = "have.not.rights";
-    private final static String IS_LOCALIZE_MESSAGE_ATTRIBUTE = "isLocalizeMessage";
     private final static String LOCALIZE_MESSAGE_ATTRIBUTE = "localizeMessage";
     private final static String PAGE_ERROR = "WEB-INF/view/error.jsp";
 
@@ -100,7 +99,6 @@ public class AccessRoleFilter implements Filter {
         LOGGER.warn(HAVE_NOT_RIGHTS_BUNDLE_ERROR_MESSAGE);
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(PAGE_ERROR);
-        request.setAttribute(IS_LOCALIZE_MESSAGE_ATTRIBUTE, true);
         request.setAttribute(LOCALIZE_MESSAGE_ATTRIBUTE, HAVE_NOT_RIGHTS_BUNDLE_ERROR_MESSAGE);
         requestDispatcher.forward(servletRequest, servletResponse);
     }

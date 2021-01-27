@@ -36,4 +36,30 @@ public class Counter implements Serializable {
         value++;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Counter counter = (Counter) o;
+        if (minBorder != counter.minBorder) {
+            return false;
+        }
+        if (maxBorder != counter.maxBorder) {
+            return false;
+        }
+        return value == counter.value;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = minBorder;
+        result = 31 * result + maxBorder;
+        result = 31 * result + value;
+        return result;
+    }
+
 }

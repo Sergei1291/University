@@ -23,7 +23,8 @@ public class CloseRegistrationCommand extends AbstractErrorCommand implements Co
     @Override
     public CommandResult execute(RequestContext requestContext) throws ServiceException {
         if (committeeService.isRegistrationFinished()) {
-            return forwardErrorPage(requestContext, REGISTRATION_CLOSED_BUNDLE_ERROR_MESSAGE);
+            return forwardErrorPage(requestContext,
+                    REGISTRATION_CLOSED_BUNDLE_ERROR_MESSAGE, true);
         }
         committeeService.closeRegistration();
         return CommandResult.redirect(COMMAND_SUCCESS_REGISTRATION);

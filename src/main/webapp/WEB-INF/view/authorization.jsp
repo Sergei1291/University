@@ -29,14 +29,14 @@
                 <fmt:message key="label.authorization.context.input.login" />
               </label>
               <br>
-              <input type="text" required name="login" />
+              <input type="text" required minlength="4" autocomplete="off" name="login" />
             </div>
             <div class="input-form">
               <label for="password">
                 <fmt:message key="label.authorization.context.input.password" />
               </label>
               <br>
-              <input type="password" required name="password" />
+              <input type="password" required minlength="4" autocomplete="off" name="password" />
             </div>
             <div class="button-send">
               <button type="submit">

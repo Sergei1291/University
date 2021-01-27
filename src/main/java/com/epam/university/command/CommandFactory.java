@@ -3,6 +3,7 @@ package com.epam.university.command;
 import com.epam.university.command.impl.*;
 import com.epam.university.dao.helper.DaoHelperCreator;
 import com.epam.university.service.impl.*;
+import com.epam.university.validator.*;
 
 public class CommandFactory {
 
@@ -29,43 +30,61 @@ public class CommandFactory {
     public static Command create(String command) {
         switch (command) {
             case ACCOUNT:
-                return new AccountCommand(new RegistrationServiceImpl(new DaoHelperCreator()));
+                return new AccountCommand(new RegistrationServiceImpl(new DaoHelperCreator()),
+                        new UserDtoValidator());
             case APPLICATION_FORM:
-                return new ApplicationFormCommand(new FacultyServiceImpl(new DaoHelperCreator()));
+                return new ApplicationFormCommand(
+                        new FacultySubjectServiceImpl(new DaoHelperCreator(), new FacultyIdValidator()),
+                        new NumberValidator());
             case APPLICATIONS_INFO:
-                return new ApplicationsInfoCommand(new FacultyApplicantServiceImpl(new DaoHelperCreator()));
+                return new ApplicationsInfoCommand(
+                        new FacultyApplicantServiceImpl(new DaoHelperCreator(), new FacultyIdValidator()),
+                        new NumberValidator());
             case APPLY:
-                return new ApplyCommand(new EnrolleeServiceImpl(new DaoHelperCreator()));
+                return new ApplyCommand(
+                        new ApplicationServiceImpl(new DaoHelperCreator(), new DataApplicationValidator(
+                                new UserDtoValidator(), new FacultyIdValidator(),
+                                new SubjectIdValidator(), new MarkValidator())),
+                        new NumberValidator());
             case AUTHORIZATION:
                 return new AuthorizationCommand();
             case CANCEL_APPLICATION:
-                return new CancelApplicationCommand(new EnrolleeServiceImpl(new DaoHelperCreator()));
+                return new CancelApplicationCommand(new CancelApplicationServiceImpl(
+                        new DaoHelperCreator(), new UserDtoValidator()));
             case CLOSE_REGISTRATION:
                 return new CloseRegistrationCommand(new CommitteeServiceImpl(new DaoHelperCreator()));
             case ENTERED_APPLICANTS:
-                return new EnteredApplicantsCommand(new EnteredUserServiceImpl(new DaoHelperCreator()));
+                return new EnteredApplicantsCommand(new EnteredUserServiceImpl(
+                        new DaoHelperCreator(), new FacultyIdValidator()),
+                        new NumberValidator());
             case ENTRANCE_COMPANY:
-                return new EntranceCompanyCommand(new EntranceCompanyServiceImpl(new DaoHelperCreator()));
+                DaoHelperCreator daoHelperCreator = new DaoHelperCreator();
+                return new EntranceCompanyCommand(new EntranceCompanyServiceImpl(
+                        new FacultySubjectServiceImpl(
+                                daoHelperCreator, new FacultyIdValidator()),
+                        daoHelperCreator));
             case FORM_LISTS:
                 return new FormListsCommand(new CommitteeServiceImpl(new DaoHelperCreator()));
             case LOCAL:
                 return new LocalCommand();
             case LOGIN:
-                return new LoginCommand(new LoginServiceImpl(new DaoHelperCreator()));
+                return new LoginCommand(new LoginServiceImpl(new DaoHelperCreator(), new AuthorizationValidator()));
             case LOGOUT:
                 return new LogoutCommand();
             case MAIN:
                 return new MainCommand(new RegistrationServiceImpl(new DaoHelperCreator()));
             case PERSONAL_APPLICATION:
-                return new PersonalApplicationCommand(new PersonalApplicationServiceImpl(new DaoHelperCreator()));
+                return new PersonalApplicationCommand(new PersonalApplicationServiceImpl(
+                        new DaoHelperCreator(), new UserDtoValidator()));
             case SELECTION_FACULTY:
-                return new SelectionFacultyCommand(new FacultyDtoServiceImpl(new DaoHelperCreator()));
+                return new SelectionFacultyCommand(new FacultyServiceImpl(new DaoHelperCreator()));
             case STATISTIC_APPLICANTS:
-                return new StatisticApplicantsCommand(new StatisticApplicationServiceImpl(new DaoHelperCreator()));
+                return new StatisticApplicantsCommand(new StatisticApplicationServiceImpl(
+                        new DaoHelperCreator(), new FacultyIdValidator()), new NumberValidator());
             case SUCCESS_FORM_LISTS:
                 return new SuccessFormListsCommand(new RegistrationServiceImpl(new DaoHelperCreator()));
             case SUCCESS_REGISTRATION:
-                return new SuccessRegistrationCommand(new RegistrationServiceImpl(new DaoHelperCreator()));
+                return new SuccessRegistrationCommand(new SuccessRegistrationServiceImpl(new DaoHelperCreator()));
             default:
                 throw new IllegalArgumentException("illegal command " + command);
         }

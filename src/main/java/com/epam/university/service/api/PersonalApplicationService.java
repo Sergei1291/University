@@ -8,6 +8,14 @@ import java.util.Optional;
 
 public interface PersonalApplicationService extends RegistrationService {
 
+    /**
+     * This method is used to finding user's application. The method returns
+     * empty optional if param userDto is not valid, or application was not found.
+     *
+     * @param userDto
+     * @return
+     * @throws ServiceException
+     */
     Optional<FullApplication> findUserApplication(UserDto userDto) throws ServiceException;
 
 }

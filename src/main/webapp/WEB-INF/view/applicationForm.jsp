@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="ex" uri="tag/custom.tld"%>
 
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="localization" />
@@ -22,7 +23,10 @@
       </div>
 
       <div class="context">
-        <fmt:message key="label.enum.faculty.${param.facultyName}" />
+        <c:set var="facultyName" scope="page">
+          <ex:faculty>${param.facultyId}</ex:faculty>
+        </c:set>
+        <fmt:message key="label.enum.faculty.${facultyName}" />
         <fmt:message key="label.application.form.context.faculty" />
         <br>
         <div class="form">
@@ -63,7 +67,7 @@
               <c:set var="messageConfirm" scope="page">
                 <fmt:message key="label.application.form.context.message.confirm" />
               </c:set>
-              <button type="submit" onclick="confirm('${messageConfirm}')">
+              <button type="submit" onclick="return confirm('${messageConfirm}')">
                 <fmt:message key="label.application.form.context.button.apply" />
               </button>
             </div>

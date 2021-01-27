@@ -7,8 +7,9 @@ import com.epam.university.model.identifiable.UserDto;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public final class FullApplication  implements Serializable {
+public final class FullApplication implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,6 +37,32 @@ public final class FullApplication  implements Serializable {
 
     public List<Certificate> getCertificates() {
         return new ArrayList<>(certificates);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        FullApplication that = (FullApplication) o;
+        if (!Objects.equals(application, that.application)) {
+            return false;
+        }
+        if (!Objects.equals(userDto, that.userDto)) {
+            return false;
+        }
+        return Objects.equals(certificates, that.certificates);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = application != null ? application.hashCode() : 0;
+        result = 31 * result + (userDto != null ? userDto.hashCode() : 0);
+        result = 31 * result + (certificates != null ? certificates.hashCode() : 0);
+        return result;
     }
 
 }

@@ -10,28 +10,30 @@ import com.epam.university.model.identifiable.ApplicationStatus;
 import com.epam.university.model.identifiable.Certificate;
 import com.epam.university.model.identifiable.UserDto;
 import com.epam.university.service.ServiceException;
-import com.epam.university.service.api.EnrolleeService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.epam.university.service.api.ApplicationService;
+import com.epam.university.validator.DataApplicationValidator;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public class EnrolleeServiceImpl extends RegistrationServiceImpl implements EnrolleeService {
-
-    private final static Logger LOGGER = LogManager.getLogger();
+public class ApplicationServiceImpl extends RegistrationServiceImpl implements ApplicationService {
 
     private final static ApplicationStatus APPLIED = ApplicationStatus.APPLIED;
-    private final static ApplicationStatus CANCELLED = ApplicationStatus.CANCELLED;
 
-    public EnrolleeServiceImpl(DaoHelperCreator daoHelperCreator) {
+    private final DataApplicationValidator dataApplicationValidator;
+
+    public ApplicationServiceImpl(DaoHelperCreator daoHelperCreator, DataApplicationValidator dataApplicationValidator) {
         super(daoHelperCreator);
+        this.dataApplicationValidator = dataApplicationValidator;
     }
 
     @Override
     public boolean apply(UserDto userDto, int facultyId, int averageMark,
                          Map<Integer, Integer> subjectsMarks) throws ServiceException {
+        if (!dataApplicationValidator.isValid(userDto, facultyId, averageMark, subjectsMarks)) {
+            return false;
+        }
         DaoHelper daoHelper = null;
         try {
             daoHelper = daoHelperCreator.create();
@@ -49,47 +51,22 @@ public class EnrolleeServiceImpl extends RegistrationServiceImpl implements Enro
             applicationDao.save(application);
             Optional<Application> applicationOptional =
                     applicationDao.findByUserAndStatus(userId, APPLIED);
-            Application correctApplication = applicationOptional.get();
+            Application appliedApplication =
+                    applicationOptional.orElseThrow(() -> new ServiceException("unknown application by user " + userId));
 
             CertificateDao certificateDao = daoHelper.createCertificateDao();
-            saveCertificates(certificateDao, correctApplication, subjectsMarks);
+            saveCertificates(certificateDao, appliedApplication, subjectsMarks);
 
             daoHelper.commitTransaction();
             return true;
         } catch (DaoException e) {
-            try {
-                daoHelper.rollBackTransaction();
-            } catch (DaoException daoException) {
-                LOGGER.error(daoException.getMessage(), daoException);
-            }
+            daoHelper.rollBackTransaction();
             throw new ServiceException(e.getMessage(), e);
         } finally {
             if (daoHelper != null) {
-                try {
-                    daoHelper.finishTransaction();
-                } catch (DaoException e) {
-                    LOGGER.error(e.getMessage(), e);
-                }
+                daoHelper.finishTransaction();
                 daoHelper.close();
             }
-        }
-    }
-
-    @Override
-    public boolean cancelApplication(UserDto userDto) throws ServiceException {
-        try (DaoHelper daoHelper = daoHelperCreator.create()) {
-            ApplicationDao applicationDao = daoHelper.createApplicationDao();
-            int userId = userDto.getId();
-            Optional<Application> applicationOptional = applicationDao.findByUserAndStatus(userId, APPLIED);
-            if (!applicationOptional.isPresent()) {
-                return false;
-            }
-            Application application = applicationOptional.get();
-            int applicationId = application.getId();
-            applicationDao.changeStatusById(applicationId, CANCELLED);
-            return true;
-        } catch (DaoException e) {
-            throw new ServiceException(e.getMessage(), e);
         }
     }
 

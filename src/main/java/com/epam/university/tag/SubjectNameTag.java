@@ -2,19 +2,21 @@ package com.epam.university.tag;
 
 import com.epam.university.model.identifiable.SubjectName;
 
+import java.util.Optional;
+
 public class SubjectNameTag extends AbstractTag<SubjectName> {
 
     @Override
-    protected SubjectName getName(int id) {
-        SubjectName foundedSubjectName = null;
+    protected Optional<SubjectName> getName(int subjectId) {
+        Optional<SubjectName> optionalSubjectName = Optional.empty();
         SubjectName[] subjectNames = SubjectName.values();
         for (SubjectName subjectName : subjectNames) {
-            int currentIdSubject = subjectName.getId();
-            if (currentIdSubject == id) {
-                foundedSubjectName = subjectName;
+            int currentSubjectId = subjectName.getId();
+            if (currentSubjectId == subjectId) {
+                optionalSubjectName = Optional.of(subjectName);
             }
         }
-        return foundedSubjectName;
+        return optionalSubjectName;
     }
 
 }

@@ -56,7 +56,7 @@ public class Controller extends HttpServlet {
     }
 
     private void dispatch(CommandResult commandResult, HttpServletRequest request,
-                          HttpServletResponse response) throws ServletException, IOException {
+                          HttpServletResponse response) throws IOException, ServletException {
         String page = commandResult.getPage();
         if (commandResult.isRedirect()) {
             response.sendRedirect(page);

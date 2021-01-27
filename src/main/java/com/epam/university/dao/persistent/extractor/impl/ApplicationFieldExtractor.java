@@ -1,12 +1,13 @@
 package com.epam.university.dao.persistent.extractor.impl;
 
-import com.epam.university.dao.persistent.extractor.AbstractFieldExtractor;
+import com.epam.university.dao.persistent.extractor.FieldExtractor;
 import com.epam.university.model.identifiable.Application;
 import com.epam.university.model.identifiable.ApplicationStatus;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ApplicationFieldExtractor extends AbstractFieldExtractor<Application> {
+public class ApplicationFieldExtractor implements FieldExtractor<Application> {
 
     private final static String ID_COLUMN = "id";
     private final static String USER_COLUMN = "user";
@@ -15,7 +16,9 @@ public class ApplicationFieldExtractor extends AbstractFieldExtractor<Applicatio
     private final static String STATUS_COLUMN = "status";
 
     @Override
-    protected void initializeMap(Map<String, Object> mapNameFiledValue, Application application) {
+    public Map<String, Object> extract(Application application) {
+        Map<String, Object> mapNameFiledValue = new LinkedHashMap<>();
+
         int id = application.getId();
         mapNameFiledValue.put(ID_COLUMN, id);
 
@@ -31,6 +34,8 @@ public class ApplicationFieldExtractor extends AbstractFieldExtractor<Applicatio
         ApplicationStatus status = application.getStatus();
         String statusValue = status.name();
         mapNameFiledValue.put(STATUS_COLUMN, statusValue);
+
+        return mapNameFiledValue;
     }
 
 }

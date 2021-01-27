@@ -24,10 +24,12 @@ public class FormListsCommand extends AbstractErrorCommand implements Command {
     @Override
     public CommandResult execute(RequestContext requestContext) throws ServiceException {
         if (committeeService.isApplicantListReady()) {
-            return forwardErrorPage(requestContext, LISTS_ALREADY_FORMED_BUNDLE_ERROR_MESSAGE);
+            return forwardErrorPage(requestContext,
+                    LISTS_ALREADY_FORMED_BUNDLE_ERROR_MESSAGE, true);
         }
         if (!committeeService.isRegistrationFinished()) {
-            return forwardErrorPage(requestContext, REGISTRATION_OPENED_BUNDLE_ERROR_MESSAGE);
+            return forwardErrorPage(requestContext,
+                    REGISTRATION_OPENED_BUNDLE_ERROR_MESSAGE, true);
         }
         committeeService.formListApplicants();
         return CommandResult.redirect(COMMAND_SUCCESS_FORM_LISTS);

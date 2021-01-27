@@ -26,7 +26,7 @@ public class ApplicationDaoImpl extends AbstractPersistentDao<Application> imple
             "select * from application where faculty = ?;";
     private static final String FIND_BY_USER_AND_STATUS =
             "select * from application where user = ? and status = ?;";
-    private static final String FIND_ACTUAL_BY_USER =
+    private static final String FIND_BY_USER_AND_STATUS_NOT_CANCELLED =
             "select * from application where user = ? and status != 'cancelled';";
     private static final String REPLACE_ALL_STATUS =
             "update application set status = ? where status = ?;";
@@ -34,9 +34,9 @@ public class ApplicationDaoImpl extends AbstractPersistentDao<Application> imple
             "update application set status = ? where id = ?;";
     private static final String FIND_COUNT_BY_STATUS =
             "select COUNT(*) as count from application where status = ?;";
-    private static final String FIND_NUMBER_ACTUAL_APPLICATIONS_BY_FACULTY =
+    private static final String FIND_NUMBER_APPLICATIONS_BY_FACULTY_AND_STATUS_NOT_CANCELLED =
             "select COUNT(*) as count from application where faculty = ? and status != 'cancelled';";
-    private static final String FIND_ACTUAL_APPLICATIONS_AMOUNTS_AVERAGE_MARK_AND_CERTIFICATES_BY_FACULTY =
+    private static final String FIND_APPLICATIONS_AMOUNTS_AVERAGE_MARK_AND_CERTIFICATES_BY_FACULTY_AND_STATUS_NOT_CANCELLED =
             "select (application.average_mark + marks.sum) as amount from application " +
                     "inner join (select application, sum(mark) as sum from certificate " +
                     "group by application) marks on marks.application=application.id" +
@@ -67,8 +67,8 @@ public class ApplicationDaoImpl extends AbstractPersistentDao<Application> imple
     }
 
     @Override
-    public Optional<Application> findActualByUser(int userId) throws DaoException {
-        return executeForSingleResult(FIND_ACTUAL_BY_USER, userId);
+    public Optional<Application> findByUserAndStatusNotCancelled(int userId) throws DaoException {
+        return executeForSingleResult(FIND_BY_USER_AND_STATUS_NOT_CANCELLED, userId);
     }
 
     @Override
@@ -94,16 +94,17 @@ public class ApplicationDaoImpl extends AbstractPersistentDao<Application> imple
     }
 
     @Override
-    public int findNumberActualApplicationsByFaculty(int facultyId) throws DaoException {
+    public int findNumberApplicationsByFacultyAndStatusNotCancelled(int facultyId) throws DaoException {
         return executeForSingleFunctionResult(FUNCTION_COUNT,
-                FIND_NUMBER_ACTUAL_APPLICATIONS_BY_FACULTY, facultyId);
+                FIND_NUMBER_APPLICATIONS_BY_FACULTY_AND_STATUS_NOT_CANCELLED, facultyId);
     }
 
     @Override
-    public List<Integer> findActualAmountsAverageMarkAndCertificatesByFaculty(int facultyId)
+    public List<Integer> findAmountsAverageMarkAndCertificatesByFacultyAndStatusNotCancelled(int facultyId)
             throws DaoException {
         return executeForFunctionResults(FUNCTION_AMOUNT,
-                FIND_ACTUAL_APPLICATIONS_AMOUNTS_AVERAGE_MARK_AND_CERTIFICATES_BY_FACULTY, facultyId);
+                FIND_APPLICATIONS_AMOUNTS_AVERAGE_MARK_AND_CERTIFICATES_BY_FACULTY_AND_STATUS_NOT_CANCELLED,
+                facultyId);
     }
 
 }

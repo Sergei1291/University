@@ -33,12 +33,7 @@ public class RegistrationServiceImpl implements RegistrationService {
                 >= MIN_NUMBER_APPLICATIONS;
     }
 
-    @Override
-    public int findNumRegisteredApplications() throws ServiceException {
-        return findNumApplicationsByStatus(REGISTERED);
-    }
-
-    private int findNumApplicationsByStatus(ApplicationStatus status) throws ServiceException {
+    protected int findNumApplicationsByStatus(ApplicationStatus status) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperCreator.create()) {
             ApplicationDao applicationDao = daoHelper.createApplicationDao();
             return applicationDao.findCountByStatus(status);

@@ -6,7 +6,8 @@ import com.epam.university.command.CommandResult;
 import com.epam.university.context.RequestContext;
 import com.epam.university.model.identifiable.UserDto;
 import com.epam.university.service.ServiceException;
-import com.epam.university.service.api.EnrolleeService;
+import com.epam.university.service.api.ApplicationService;
+import com.epam.university.validator.Validator;
 
 import java.util.*;
 
@@ -30,30 +31,37 @@ public class ApplyCommand extends AbstractErrorCommand implements Command {
     private final static String COMMAND_PERSONAL_APPLICATION =
             "/University/controller?command=personalApplication";
 
-    private final EnrolleeService enrolleeService;
+    private final ApplicationService applicationService;
+    private final Validator<String> validator;
 
-    public ApplyCommand(EnrolleeService enrolleeService) {
-        this.enrolleeService = enrolleeService;
+    public ApplyCommand(ApplicationService applicationService, Validator<String> validator) {
+        this.applicationService = applicationService;
+        this.validator = validator;
     }
 
     @Override
     public CommandResult execute(RequestContext requestContext) throws ServiceException {
-        if (enrolleeService.isRegistrationFinished()) {
-            return forwardErrorPage(requestContext, REGISTRATION_CLOSED_BUNDLE_ERROR_MESSAGE);
+        if (applicationService.isRegistrationFinished()) {
+            return forwardErrorPage(requestContext,
+                    REGISTRATION_CLOSED_BUNDLE_ERROR_MESSAGE, true);
         }
         UserDto userDto = (UserDto) requestContext.getSessionAttribute(USER_DTO_ATTRIBUTE);
         Integer facultyId = getParameterByName(requestContext, FACULTY_ID_PARAMETER);
         Integer averageMark = getParameterByName(requestContext, AVERAGE_MARK_PARAMETER);
         Map<Integer, Integer> subjectsMarks = findSubjectsMarks(requestContext);
-        boolean isApplicationApplied = enrolleeService.apply(userDto, facultyId, averageMark, subjectsMarks);
+        boolean isApplicationApplied = applicationService.apply(userDto, facultyId, averageMark, subjectsMarks);
         if (!isApplicationApplied) {
-            return forwardErrorPage(requestContext, APPLICATION_IS_NOT_APPLIED_BUNDLE_ERROR_MESSAGE);
+            return forwardErrorPage(requestContext,
+                    APPLICATION_IS_NOT_APPLIED_BUNDLE_ERROR_MESSAGE, true);
         }
         return CommandResult.redirect(COMMAND_PERSONAL_APPLICATION);
     }
 
     private Integer getParameterByName(RequestContext requestContext, String parameterName) {
         String parameter = requestContext.getRequestParameter(parameterName)[INDEX_FIRST_VALUE];
+        if (!validator.isValid(parameter)) {
+            return -1;
+        }
         return Integer.parseInt(parameter);
     }
 

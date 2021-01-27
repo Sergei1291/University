@@ -11,9 +11,9 @@ import com.epam.university.model.identifiable.UserDto;
 import com.epam.university.service.ServiceException;
 import com.epam.university.service.api.EnteredUserService;
 import com.epam.university.service.impl.comparator.UserDtoSurnameNameComparator;
+import com.epam.university.validator.Validator;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,12 +22,18 @@ public class EnteredUserServiceImpl extends RegistrationServiceImpl
 
     private final static ApplicationStatus ENTERED = ApplicationStatus.ENTERED;
 
-    public EnteredUserServiceImpl(DaoHelperCreator daoHelperCreator) {
+    private final Validator<Integer> validator;
+
+    public EnteredUserServiceImpl(DaoHelperCreator daoHelperCreator, Validator<Integer> validator) {
         super(daoHelperCreator);
+        this.validator = validator;
     }
 
     @Override
     public List<UserDto> findEnteredUsersByFaculty(int facultyId) throws ServiceException {
+        if (!validator.isValid(facultyId)) {
+            return new ArrayList<>();
+        }
         try (DaoHelper daoHelper = daoHelperCreator.create()) {
             ApplicationDao applicationDao = daoHelper.createApplicationDao();
             List<Application> applications =
@@ -37,7 +43,8 @@ public class EnteredUserServiceImpl extends RegistrationServiceImpl
             for (Application application : applications) {
                 int userId = application.getUser();
                 Optional<UserDto> optionalUserDto = userDtoDao.findById(userId);
-                UserDto userDto = optionalUserDto.get();
+                UserDto userDto =
+                        optionalUserDto.orElseThrow(() -> new ServiceException("unknown user " + userId));
                 enteredUsers.add(userDto);
             }
             return sortAlphabeticSurnameName(enteredUsers);
@@ -48,7 +55,7 @@ public class EnteredUserServiceImpl extends RegistrationServiceImpl
 
     private List<UserDto> sortAlphabeticSurnameName(List<UserDto> users) {
         List<UserDto> sortedApplicants = new ArrayList<>(users);
-        Collections.sort(sortedApplicants, new UserDtoSurnameNameComparator());
+        sortedApplicants.sort(new UserDtoSurnameNameComparator());
         return sortedApplicants;
     }
 

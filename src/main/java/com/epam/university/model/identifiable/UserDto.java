@@ -1,5 +1,7 @@
 package com.epam.university.model.identifiable;
 
+import java.util.Objects;
+
 public final class UserDto implements Identifiable {
 
     private static final long serialVersionUID = 1L;
@@ -35,6 +37,36 @@ public final class UserDto implements Identifiable {
 
     public String getSurname() {
         return surname;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UserDto userDto = (UserDto) o;
+        if (id != userDto.id) {
+            return false;
+        }
+        if (role != userDto.role) {
+            return false;
+        }
+        if (!Objects.equals(name, userDto.name)) {
+            return false;
+        }
+        return Objects.equals(surname, userDto.surname);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (role != null ? role.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (surname != null ? surname.hashCode() : 0);
+        return result;
     }
 
 }

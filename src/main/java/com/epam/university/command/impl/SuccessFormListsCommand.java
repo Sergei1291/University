@@ -22,7 +22,7 @@ public class SuccessFormListsCommand extends AbstractErrorCommand implements Com
     @Override
     public CommandResult execute(RequestContext requestContext) throws ServiceException {
         if (!registrationService.isApplicantListReady()) {
-            return forwardErrorPage(requestContext, LISTS_NOT_FORMED_BUNDLE_ERROR_MESSAGE);
+            return forwardErrorPage(requestContext, LISTS_NOT_FORMED_BUNDLE_ERROR_MESSAGE, true);
         }
         return CommandResult.forward(PAGE_SUCCESS_FORM_LISTS);
     }

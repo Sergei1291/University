@@ -24,7 +24,7 @@
       <div class="context">
         <fmt:message key="label.selection.faculty.context.select.faculty" />
         <br><br>
-        <c:forEach var="facultyDto" items="${facultiesDto}">
+        <c:forEach var="faculty" items="${faculties}">
           <form method="GET" action="${pageContext.request.contextPath}/controller">
             <c:choose>
               <c:when test="${param.targetPage == 'apply'}">
@@ -37,11 +37,10 @@
                 <input type="hidden" name="command" value="applicationsInfo" />
               </c:when>
             </c:choose>
-            <input type="hidden" name="facultyId" value="${facultyDto.id}" />
-            <input type="hidden" name="facultyName" value="${facultyDto.name}" />
+            <input type="hidden" name="facultyId" value="${faculty.id}" />
             <div class="context-button">
               <button type="submit">
-                <fmt:message key="label.enum.faculty.${facultyDto.name}" />
+                <fmt:message key="label.enum.faculty.${faculty.name}" />
               </button>
             </div>
           </form>

@@ -25,4 +25,26 @@ public final class Subject implements Identifiable {
         return name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Subject subject = (Subject) o;
+        if (id != subject.id) {
+            return false;
+        }
+        return name == subject.name;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
+    }
+
 }

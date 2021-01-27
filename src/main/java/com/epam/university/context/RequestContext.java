@@ -35,7 +35,7 @@ public class RequestContext {
         return requestParameters.get(name);
     }
 
-    public void setRequestParameter(String name, String... params) {
+    public void setRequestParameter(String name, String[] params) {
         requestParameters.put(name, params);
     }
 
@@ -54,37 +54,17 @@ public class RequestContext {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         RequestContext that = (RequestContext) o;
-        if (!Objects.equals(requestAttributes, that.requestAttributes)) {
-            return false;
-        }
-        if (!Objects.equals(requestParameters, that.requestParameters)) {
-            return false;
-        }
-        return Objects.equals(sessionAttributes, that.sessionAttributes);
+        return Objects.equals(requestAttributes, that.requestAttributes) &&
+                Objects.equals(requestParameters, that.requestParameters) &&
+                Objects.equals(sessionAttributes, that.sessionAttributes);
     }
 
     @Override
     public int hashCode() {
-        int result = requestAttributes != null ? requestAttributes.hashCode() : 0;
-        result = 31 * result + (requestParameters != null ? requestParameters.hashCode() : 0);
-        result = 31 * result + (sessionAttributes != null ? sessionAttributes.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return this.getClass().getSimpleName() + "{" +
-                "requestAttributes=" + requestAttributes +
-                ", requestParameters=" + requestParameters +
-                ", sessionAttributes=" + sessionAttributes +
-                '}';
+        return Objects.hash(requestAttributes, requestParameters, sessionAttributes);
     }
 
 }

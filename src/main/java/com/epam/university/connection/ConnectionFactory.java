@@ -12,10 +12,10 @@ import java.util.Properties;
 
 public class ConnectionFactory {
 
+    private final static Logger LOGGER = LogManager.getLogger();
+
     private final static String PROPERTIES_FILE = "jdbc.properties";
     private final static String URL_KEY_PROPERTY = "url";
-
-    private final static Logger LOGGER = LogManager.getLogger();
 
     private final Properties properties = new Properties();
 

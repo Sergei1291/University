@@ -37,7 +37,7 @@
               <c:set var="messageConfirmClose" scope="page">
                 <fmt:message key="label.account.context.close.message.confirm" />
               </c:set>
-              <button type="submit" onclick="confirm('${messageConfirmClose}')">
+              <button type="submit" onclick="return confirm('${messageConfirmClose}')">
                 <fmt:message key="label.account.context.button.close.registration" />
               </button>
             </div>
@@ -48,8 +48,6 @@
             <br>
             <fmt:message key="label.account.context.registration.finished" />
             <br><br>
-            <fmt:message key="label.account.context.edit.applications" />
-            <br><br>
             <fmt:message key="label.account.context.form.entered.list" />
             <br>
             <form method="POST" action="${pageContext.request.contextPath}/controller?command=formLists">
@@ -57,7 +55,7 @@
                 <c:set var="messageConfirmForm" scope="page">
                   <fmt:message key="label.account.context.form.message.confirm" />
                 </c:set>
-                <button type="submit" onclick="confirm('${messageConfirmForm}')">
+                <button type="submit" onclick="return confirm('${messageConfirmForm}')">
                   <fmt:message key="label.account.context.button.form.entered.list" />
                 </button>
               </div>

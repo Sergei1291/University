@@ -3,20 +3,24 @@ package com.epam.university.dao.helper;
 import com.epam.university.connection.ConnectionPool;
 import com.epam.university.connection.ProxyConnection;
 import com.epam.university.dao.DaoException;
-import com.epam.university.dao.api.FacultyDtoDao;
+import com.epam.university.dao.api.FacultyDao;
 import com.epam.university.dao.api.SubjectDao;
 import com.epam.university.dao.api.UserDtoDao;
-import com.epam.university.dao.impl.FacultyDtoDaoImpl;
+import com.epam.university.dao.impl.FacultyDaoImpl;
 import com.epam.university.dao.impl.SubjectDaoImpl;
 import com.epam.university.dao.impl.UserDtoDaoImpl;
 import com.epam.university.dao.persistent.api.ApplicationDao;
 import com.epam.university.dao.persistent.api.CertificateDao;
 import com.epam.university.dao.persistent.impl.ApplicationDaoImpl;
 import com.epam.university.dao.persistent.impl.CertificateDaoImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 
 public class DaoHelper implements AutoCloseable {
+
+    private final static Logger LOGGER = LogManager.getLogger();
 
     private final ProxyConnection proxyConnection;
 
@@ -32,8 +36,8 @@ public class DaoHelper implements AutoCloseable {
         return new CertificateDaoImpl(proxyConnection);
     }
 
-    public FacultyDtoDao createFacultyDtoDao() {
-        return new FacultyDtoDaoImpl(proxyConnection);
+    public FacultyDao createFacultyDao() {
+        return new FacultyDaoImpl(proxyConnection);
     }
 
     public SubjectDao createSubjectDao() {
@@ -65,19 +69,19 @@ public class DaoHelper implements AutoCloseable {
         }
     }
 
-    public void rollBackTransaction() throws DaoException {
+    public void rollBackTransaction() {
         try {
             proxyConnection.rollback();
         } catch (SQLException e) {
-            throw new DaoException(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
-    public void finishTransaction() throws DaoException {
+    public void finishTransaction() {
         try {
             proxyConnection.setAutoCommit(true);
         } catch (SQLException e) {
-            throw new DaoException(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

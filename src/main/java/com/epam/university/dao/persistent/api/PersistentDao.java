@@ -6,6 +6,12 @@ import com.epam.university.model.identifiable.Identifiable;
 
 public interface PersistentDao<T extends Identifiable> extends Dao<T> {
 
+    /**
+     * This method is used to save object type T in data warehouse.
+     *
+     * @param identifiable
+     * @throws DaoException
+     */
     void save(T identifiable) throws DaoException;
 
 }

@@ -50,12 +50,4 @@ public final class CommandResult {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return this.getClass().getSimpleName() + "{" +
-                "page='" + page + '\'' +
-                ", redirect=" + redirect +
-                '}';
-    }
-
 }

@@ -41,30 +41,29 @@
                 <fmt:message key="label.entrance.company.context.table.applications.submitted" />
               </td>
             </tr>
-            <c:forEach var="faculty" items="${faculties}" varStatus="status">
+            <c:forEach var="facultyDto" items="${facultiesDto}" varStatus="status">
               <tr>
                 <td>
                   ${status.count}
                 </td>
                 <td>
-                  <fmt:message key="label.enum.faculty.${faculty.name}" />
+                  <fmt:message key="label.enum.faculty.${facultyDto.name}" />
                 </td>
                 <td>
-                  <c:forEach var="subject" items="${faculty.subjects}">
+                  <c:forEach var="subject" items="${facultyDto.subjects}">
                     <fmt:message key="label.enum.subject.${subject.name}" />
                     <br>
                   </c:forEach>
                 </td>
                 <td>
-                  ${faculty.recruitment}
+                  ${facultyDto.recruitment}
                 </td>
                 <td>
-                  ${numbersApplications.get(faculty.id)}
+                  ${numbersApplications.get(facultyDto.id)}
                   <br>
                   <form method="GET" action="${pageContext.request.contextPath}/controller">
                     <input type="hidden" name="command" value="statisticApplicants" />
-                    <input type="hidden" name="facultyId" value="${faculty.id}" />
-                    <input type="hidden" name="facultyName" value="${faculty.name}" />
+                    <input type="hidden" name="facultyId" value="${facultyDto.id}" />
                     <button type="submit">
                       <fmt:message key="label.entrance.company.context.table.button.details" />
                     </button>
