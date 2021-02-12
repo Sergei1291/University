@@ -26,7 +26,7 @@ public class EntranceCompanyCommand implements Command {
     public CommandResult execute(RequestContext requestContext) throws ServiceException {
         List<FacultyDto> facultiesDto = entranceCompanyService.findFacultiesDto();
         requestContext.setRequestAttribute(FACULTIES_DTO_ATTRIBUTE, facultiesDto);
-
+        
         Map<Integer, Integer> numbersApplications =
                 entranceCompanyService.findNumbersApplications();
         requestContext.setRequestAttribute(NUMBERS_APPLICATIONS, numbersApplications);

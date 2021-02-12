@@ -34,11 +34,9 @@ function display(numPage) {
 function displayPagination() {
   let divPagination = document.querySelector(".pagination");
   divPagination.innerHtml = '';
-
   if (numberPages <= 1) {
     return;
   }
-
   for (var i = 1; i <= numberPages; i++) {
     appendTag(divPagination, i, 'a');
   }
@@ -46,7 +44,6 @@ function displayPagination() {
 
 function eventHandle() {
   let items = document.querySelectorAll(".pagination a");
-
   for (let item of items) {
     item.addEventListener('click', function() {
     let pageNum = +this.innerHTML;
@@ -57,17 +54,14 @@ function eventHandle() {
 
 function calculateNumberPages(){
   let numberRows = rows.length;
-
   return Math.ceil(numberRows / rowsOnPage);
 }
 
 function calculateStart(numPage) {
-
   return rowsOnPage * (numPage - 1);
 }
 
 function calculateEnd(numPage) {
-
   return rowsOnPage * numPage;
 }
 
@@ -75,6 +69,5 @@ function appendTag(tagOuter, tagInnerCode, tagInnerName) {
   let tagInner = document.createElement(tagInnerName);
   tagInner.innerHTML = tagInnerCode;
   tagOuter.appendChild(tagInner);
-
   return tagInner;
 }

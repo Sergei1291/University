@@ -8,7 +8,7 @@ body {
 }
 
 button:active, button:focus {
-  outline: none !important;
+    outline: none !important;
 }
 
 .buttons-container {

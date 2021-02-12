@@ -11,7 +11,6 @@ public class SuccessRegistrationCommand extends AbstractErrorCommand implements 
 
     private final static String LISTS_ALREADY_FORMED_BUNDLE_ERROR_MESSAGE = "lists.already.formed";
     private final static String REGISTRATION_OPENED_BUNDLE_ERROR_MESSAGE = "registration.opened";
-
     private final static String REGISTERED_APPLICATIONS_ATTRIBUTE = "registeredApplications";
     private final static String PAGE_SUCCESS_REGISTRATION = "WEB-INF/view/successRegistration.jsp";
 

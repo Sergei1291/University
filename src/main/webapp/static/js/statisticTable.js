@@ -25,6 +25,5 @@ function appendTag(tagOuter, tagInnerCode, tagInnerName) {
   let tagInner = document.createElement(tagInnerName);
   tagInner.innerHTML = tagInnerCode;
   tagOuter.appendChild(tagInner);
-
   return tagInner;
 }

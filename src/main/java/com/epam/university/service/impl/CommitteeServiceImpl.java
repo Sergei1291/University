@@ -107,7 +107,7 @@ public class CommitteeServiceImpl extends RegistrationServiceImpl implements Com
             return new ArrayList<>(applicationsDto);
         }
         List<ApplicationDto> sortedApplications = new ArrayList<>(applicationsDto);
-        Collections.sort(sortedApplications, new ApplicationDtoMarksAmountComparator());
+        sortedApplications.sort(new ApplicationDtoMarksAmountComparator());
         return new ArrayList<>(sortedApplications.subList(0, recruitment));
     }
 

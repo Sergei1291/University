@@ -49,7 +49,7 @@ public class ApplicationFormCommandTest {
 
         RequestContext expectedRequestContext = new RequestContext();
         expectedRequestContext.setRequestParameter(FACULTY_ID_PARAMETER, FACULTY_ID_VALUE);
-        expectedRequestContext.setRequestAttribute(MESSAGE_ATTRIBUTE, "PARAMETER IS NOT VALID: " + "1");
+        expectedRequestContext.setRequestAttribute(MESSAGE_ATTRIBUTE, "PARAMETER IS NOT VALID: 1");
         Assert.assertEquals(expectedRequestContext, actualRequestContext);
     }
 
@@ -72,7 +72,7 @@ public class ApplicationFormCommandTest {
 
         RequestContext expectedRequestContext = new RequestContext();
         expectedRequestContext.setRequestParameter(FACULTY_ID_PARAMETER, FACULTY_ID_VALUE);
-        expectedRequestContext.setRequestAttribute(MESSAGE_ATTRIBUTE, "PARAMETER IS NOT VALID: " + "1");
+        expectedRequestContext.setRequestAttribute(MESSAGE_ATTRIBUTE, "PARAMETER IS NOT VALID: 1");
         Assert.assertEquals(expectedRequestContext, actualRequestContext);
     }
 

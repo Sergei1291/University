@@ -55,7 +55,7 @@ public class DaoPersistentHelperImplTest {
         //when
         Object[] actual = daoPersistentHelper.createParams(DATA_MAP, id);
         //then
-        Object[] expected = new Object[]{2, "facultyName", "cancelled", id};
+        Object[] expected = new Object[]{2, "facultyName", "cancelled", 100};
         Assert.assertArrayEquals(expected, actual);
     }
 

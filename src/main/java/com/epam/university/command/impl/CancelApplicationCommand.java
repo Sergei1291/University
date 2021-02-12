@@ -12,7 +12,6 @@ public class CancelApplicationCommand extends AbstractErrorCommand implements Co
 
     private final static String REGISTRATION_CLOSED_BUNDLE_ERROR_MESSAGE = "registration.closed";
     private final static String APPLICATION_NOT_FOUND_BUNDLE_ERROR_MESSAGE = "application.not.found";
-
     private final static String USER_DTO_ATTRIBUTE = "userDto";
     private final static String COMMAND_PERSONAL_APPLICATION =
             "/University/controller?command=personalApplication";

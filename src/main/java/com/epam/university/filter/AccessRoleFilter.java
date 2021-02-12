@@ -68,7 +68,7 @@ public class AccessRoleFilter implements Filter {
         String command = request.getParameter(COMMAND_PARAMETER);
         boolean accessFlag = findAccessFlag(userDto, command);
         if (!accessFlag) {
-            dispatchToErrorPage(servletRequest, servletResponse);
+            forwardErrorPage(servletRequest, servletResponse);
             return;
         }
         filterChain.doFilter(servletRequest, servletResponse);
@@ -94,7 +94,7 @@ public class AccessRoleFilter implements Filter {
     public void destroy() {
     }
 
-    private void dispatchToErrorPage(ServletRequest servletRequest, ServletResponse servletResponse)
+    private void forwardErrorPage(ServletRequest servletRequest, ServletResponse servletResponse)
             throws ServletException, IOException {
         LOGGER.warn(HAVE_NOT_RIGHTS_BUNDLE_ERROR_MESSAGE);
         HttpServletRequest request = (HttpServletRequest) servletRequest;

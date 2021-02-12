@@ -31,6 +31,10 @@ public class DataApplicationValidator {
         if (!markValidator.isValid(averageMark)) {
             return false;
         }
+        return isValidSubjectsMarks(subjectsMarks);
+    }
+
+    private boolean isValidSubjectsMarks(Map<Integer, Integer> subjectsMarks) {
         Set<Integer> subjectsId = subjectsMarks.keySet();
         for (Integer subjectId : subjectsId) {
             if (!subjectIdValidator.isValid(subjectId)) {

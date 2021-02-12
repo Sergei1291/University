@@ -13,9 +13,8 @@ import java.util.List;
 
 public class EnteredApplicantsCommand extends AbstractErrorCommand implements Command {
 
-    private final static String LISTS_NOT_FORMED_BUNDLE_ERROR_MESSAGE = "lists.not.formed";
-
     private final static int INDEX_FIRST_VALUE = 0;
+    private final static String LISTS_NOT_FORMED_BUNDLE_ERROR_MESSAGE = "lists.not.formed";
     private final static String PARAMETER_IS_NOT_VALID_ERROR_MESSAGE = "PARAMETER IS NOT VALID: ";
     private final static String FACULTY_ID_PARAMETER = "facultyId";
     private final static String ENTERED_APPLICANTS_ATTRIBUTE = "enteredApplicants";

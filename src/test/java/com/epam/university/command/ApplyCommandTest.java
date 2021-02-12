@@ -80,7 +80,7 @@ public class ApplyCommandTest {
         requestContext.setRequestParameter("firstSubjectId", new String[]{"2"});
         requestContext.setRequestParameter("secondSubjectId", new String[]{"4"});
         requestContext.setRequestParameter("thirdSubjectId", new String[]{"5"});
-        
+
         requestContext.setRequestParameter("firstMark", new String[]{"10"});
         requestContext.setRequestParameter("secondMark", new String[]{"20"});
         requestContext.setRequestParameter("thirdMark", new String[]{"30"});

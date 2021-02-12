@@ -10,7 +10,6 @@ import com.epam.university.service.api.RegistrationService;
 public class SuccessFormListsCommand extends AbstractErrorCommand implements Command {
 
     private final static String LISTS_NOT_FORMED_BUNDLE_ERROR_MESSAGE = "lists.not.formed";
-
     private final static String PAGE_SUCCESS_FORM_LISTS = "WEB-INF/view/successFormLists.jsp";
 
     private final RegistrationService registrationService;

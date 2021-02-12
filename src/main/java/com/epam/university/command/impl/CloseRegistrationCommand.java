@@ -10,7 +10,6 @@ import com.epam.university.service.api.CommitteeService;
 public class CloseRegistrationCommand extends AbstractErrorCommand implements Command {
 
     private final static String REGISTRATION_CLOSED_BUNDLE_ERROR_MESSAGE = "registration.closed";
-
     private final static String COMMAND_SUCCESS_REGISTRATION =
             "/University/controller?command=successRegistration";
 

@@ -17,7 +17,6 @@ public class LoginCommand implements Command {
     private final static String IS_VISIBLE_ERROR_MESSAGE_ATTRIBUTE = "isVisibleErrorMessage";
     private final static String USER_DTO_ATTRIBUTE = "userDto";
     private final static String PAGE_AUTHORIZATION = "WEB-INF/view/authorization.jsp";
-
     private final static String COMMAND_ACCOUNT = "/University/controller?command=account";
 
     private final LoginService loginService;
@@ -28,8 +27,8 @@ public class LoginCommand implements Command {
 
     @Override
     public CommandResult execute(RequestContext requestContext) throws ServiceException {
-        String login = requestContext.getRequestParameter(LOGIN_PARAMETER)[INDEX_FIRST_VALUE];
-        String password = requestContext.getRequestParameter(PASSWORD_PARAMETER)[INDEX_FIRST_VALUE];
+        String login = getParameterByName(requestContext, LOGIN_PARAMETER);
+        String password = getParameterByName(requestContext, PASSWORD_PARAMETER);
         Optional<UserDto> optionalUserDto = loginService.login(login, password);
         if (!optionalUserDto.isPresent()) {
             requestContext.setRequestAttribute(IS_VISIBLE_ERROR_MESSAGE_ATTRIBUTE, true);
@@ -38,6 +37,15 @@ public class LoginCommand implements Command {
         UserDto userDto = optionalUserDto.get();
         requestContext.setSessionAttribute(USER_DTO_ATTRIBUTE, userDto);
         return CommandResult.redirect(COMMAND_ACCOUNT);
+    }
+
+    private String getParameterByName(RequestContext requestContext, String parameterName) {
+        String[] parameters = requestContext.getRequestParameter(parameterName);
+        String parameter = "";
+        if (parameters != null) {
+            parameter = parameters[INDEX_FIRST_VALUE];
+        }
+        return parameter;
     }
 
 }

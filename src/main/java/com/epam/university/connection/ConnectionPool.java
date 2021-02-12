@@ -14,13 +14,13 @@ public class ConnectionPool {
 
     private static final int CONNECTIONS_NUMBER = 5;
 
-    private static final AtomicBoolean isInstanceCreated = new AtomicBoolean(false);
+    private static final AtomicBoolean IS_INSTANCE_CREATED = new AtomicBoolean(false);
     private static final ReentrantLock LOCK_SINGLETON = new ReentrantLock();
     private static final ReentrantLock LOCK_CONNECTIONS = new ReentrantLock();
 
     private static ConnectionPool instance;
 
-    private final ConnectionFactory connectionFactory = new ConnectionFactory();
+    private final ConnectionCreator connectionCreator = new ConnectionCreator();
     private Queue<ProxyConnection> availableConnections;
     private List<ProxyConnection> usedConnections;
     private Semaphore semaphore;
@@ -29,7 +29,7 @@ public class ConnectionPool {
     }
 
     public static ConnectionPool getInstance() {
-        if (!isInstanceCreated.get()) {
+        if (!IS_INSTANCE_CREATED.get()) {
             LOCK_SINGLETON.lock();
             try {
                 ConnectionPool localInstance = instance;
@@ -37,7 +37,7 @@ public class ConnectionPool {
                     localInstance = new ConnectionPool();
                     localInstance.initialize();
                     instance = localInstance;
-                    isInstanceCreated.set(true);
+                    IS_INSTANCE_CREATED.set(true);
                 }
             } finally {
                 LOCK_SINGLETON.unlock();
@@ -55,7 +55,7 @@ public class ConnectionPool {
 
     private void initializeConnections() {
         for (int i = 0; i < CONNECTIONS_NUMBER; i++) {
-            Connection connection = connectionFactory.create();
+            Connection connection = connectionCreator.create();
             ProxyConnection proxyConnection = new ProxyConnection(connection, this);
             availableConnections.offer(proxyConnection);
             usedConnections.add(proxyConnection);

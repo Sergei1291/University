@@ -60,6 +60,7 @@ public class Controller extends HttpServlet {
         String page = commandResult.getPage();
         if (commandResult.isRedirect()) {
             response.sendRedirect(page);
+            return;
         }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(page);
         requestDispatcher.forward(request, response);
