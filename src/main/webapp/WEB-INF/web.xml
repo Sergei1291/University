@@ -1,0 +1,45 @@
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+
+    <display-name>Archetype Created Web Application</display-name>
+
+    <servlet>
+        <servlet-name>main</servlet-name>
+        <servlet-class>com.epam.university.controller.Controller</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>main</servlet-name>
+        <url-pattern>/controller</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>sessionFilter</filter-name>
+        <filter-class>com.epam.university.filter.SessionFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>accessByRole</filter-name>
+        <filter-class>com.epam.university.filter.AccessRoleFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>sessionFilter</filter-name>
+        <url-pattern>/controller</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>accessByRole</filter-name>
+        <url-pattern>/controller</url-pattern>
+    </filter-mapping>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error404.jsp</location>
+    </error-page>
+
+    <session-config>
+        <session-timeout>10</session-timeout>
+    </session-config>
+
+</web-app>
